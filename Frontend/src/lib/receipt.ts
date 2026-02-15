@@ -35,6 +35,12 @@ export function generateReceipt(record: MaintenanceRecord, societyName = "UrbanV
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f0f2f5;
@@ -327,9 +333,58 @@ export function generateReceipt(record: MaintenanceRecord, societyName = "UrbanV
     }
 
     @media print {
-      body { background: white; padding: 0; }
-      .receipt-container { box-shadow: none; border-radius: 0; max-width: 100%; }
-      .print-actions { display: none; }
+      html, body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+      body { background: white !important; padding: 0; margin: 0; }
+      .receipt-container { box-shadow: none; max-width: 100%; }
+      .receipt-header {
+        background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%) !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important;
+      }
+      .receipt-header::after {
+        background: linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6) !important;
+        -webkit-print-color-adjust: exact !important;
+      }
+      .status-badge {
+        -webkit-print-color-adjust: exact !important;
+      }
+      .status-paid { background: rgba(16, 185, 129, 0.2) !important; color: #6ee7b7 !important; border: 1px solid rgba(16, 185, 129, 0.3) !important; }
+      .status-pending { background: rgba(245, 158, 11, 0.2) !important; color: #fcd34d !important; border: 1px solid rgba(245, 158, 11, 0.3) !important; }
+      .status-overdue { background: rgba(239, 68, 68, 0.2) !important; color: #fca5a5 !important; border: 1px solid rgba(239, 68, 68, 0.3) !important; }
+      .status-paid .status-dot { background: #10b981 !important; }
+      .status-pending .status-dot { background: #f59e0b !important; }
+      .status-overdue .status-dot { background: #ef4444 !important; }
+      .info-item {
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+        -webkit-print-color-adjust: exact !important;
+      }
+      .total-row {
+        background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%) !important;
+        color: white !important;
+        -webkit-print-color-adjust: exact !important;
+      }
+      .payment-summary {
+        background: #f0fdf4 !important;
+        border: 1px solid #bbf7d0 !important;
+        -webkit-print-color-adjust: exact !important;
+      }
+      .payment-summary.has-balance {
+        background: #fffbeb !important;
+        border-color: #fde68a !important;
+      }
+      .paid-value { color: #059669 !important; }
+      .balance-value { color: #d97706 !important; }
+      .receipt-footer {
+        background: #f8fafc !important;
+        border-top: 1px solid #e2e8f0 !important;
+        -webkit-print-color-adjust: exact !important;
+      }
+      .print-actions { display: none !important; }
     }
   </style>
 </head>

@@ -14,7 +14,25 @@ router.get("/", async (req, res) => {
 
     if (error) throw error;
 
-    res.json(toCamelCase(data));
+    // Enrich owner_name from houses for records that have empty owner_name
+    const records = data || [];
+    const needsOwner = records.filter((r) => !r.owner_name && r.house_id);
+    if (needsOwner.length > 0) {
+      const houseIds = [...new Set(needsOwner.map((r) => r.house_id))];
+      const { data: houses } = await supabase
+        .from("houses")
+        .select("id, owner_name")
+        .in("id", houseIds);
+      const ownerMap = {};
+      (houses || []).forEach((h) => { ownerMap[h.id] = h.owner_name || ""; });
+      records.forEach((r) => {
+        if (!r.owner_name && r.house_id && ownerMap[r.house_id]) {
+          r.owner_name = ownerMap[r.house_id];
+        }
+      });
+    }
+
+    res.json(toCamelCase(records));
   } catch (err) {
     console.error("Fetch maintenance error:", err);
     res.status(500).json({ message: "Failed to fetch maintenance records" });
