@@ -13,6 +13,7 @@ type AuthContextType = {
   user: User | null;
   isAuthenticated: boolean;
   isDemo: boolean;
+  isLoading: boolean;
   login: (email: string, password: string) => Promise<boolean>;
   loginAsDemo: () => void;
   logout: () => void;
@@ -30,6 +31,7 @@ const DEMO_USER: User = {
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Check for existing session
@@ -41,6 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // For demo users, just restore without verification
       if (parsed.role === "demo") {
         setUser(parsed);
+        setIsLoading(false);
         return;
       }
       // For real admin, verify the token is still valid
@@ -58,10 +61,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           .catch(() => {
             localStorage.removeItem("urbanvista-user");
             localStorage.removeItem("urbanvista-token");
+          })
+          .finally(() => {
+            setIsLoading(false);
           });
       } else {
         setUser(parsed);
+        setIsLoading(false);
       }
+    } else {
+      setIsLoading(false);
     }
   }, []);
 
@@ -111,6 +120,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user,
         isAuthenticated: !!user,
         isDemo: user?.role === "demo",
+        isLoading,
         login,
         loginAsDemo,
         logout,

@@ -249,8 +249,6 @@ export default function Houses() {
                       floor: newHouse.floor,
                       status: newHouse.status,
                       notes: newHouse.notes || undefined,
-                      membersCount: 0,
-                      vehiclesCount: 0,
                     });
                   }}
                 >

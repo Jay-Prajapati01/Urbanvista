@@ -4,7 +4,7 @@ const { toCamelCase, toSnakeCase } = require("../utils/transform");
 
 const router = express.Router();
 
-// GET /api/vehicles — Fetch all vehicles
+// GET /api/vehicles — Fetch all vehicles with owner names
 router.get("/", async (req, res) => {
   try {
     const { data, error } = await supabase
@@ -15,7 +15,25 @@ router.get("/", async (req, res) => {
 
     if (error) throw error;
 
-    res.json(toCamelCase(data));
+    // Enrich with owner_name from houses table
+    const houseIds = [...new Set((data || []).map((v) => v.house_id).filter(Boolean))];
+    let houseMap = {};
+    if (houseIds.length > 0) {
+      const { data: houses } = await supabase
+        .from("houses")
+        .select("id, owner_name")
+        .in("id", houseIds);
+      (houses || []).forEach((h) => {
+        houseMap[h.id] = h.owner_name || "";
+      });
+    }
+
+    const enriched = (data || []).map((v) => ({
+      ...v,
+      owner_name: v.owner_name || houseMap[v.house_id] || "",
+    }));
+
+    res.json(toCamelCase(enriched));
   } catch (err) {
     console.error("Fetch vehicles error:", err);
     res.status(500).json({ message: "Failed to fetch vehicles" });
@@ -48,6 +66,8 @@ router.post("/", async (req, res) => {
     delete dbData.id;
     delete dbData.created_at;
     delete dbData.updated_at;
+    delete dbData.owner_name;
+    delete dbData.owner_id;
 
     const { data, error } = await supabase
       .from("vehicles")

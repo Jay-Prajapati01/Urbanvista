@@ -4,18 +4,39 @@ const { toCamelCase, toSnakeCase } = require("../utils/transform");
 
 const router = express.Router();
 
-// GET /api/houses — Fetch all houses
+// GET /api/houses — Fetch all houses with computed member/vehicle counts
 router.get("/", async (req, res) => {
   try {
-    const { data, error } = await supabase
-      .from("houses")
-      .select("*")
-      .order("block", { ascending: true })
-      .order("house_number", { ascending: true });
+    const [housesRes, membersRes, vehiclesRes] = await Promise.all([
+      supabase
+        .from("houses")
+        .select("*")
+        .order("block", { ascending: true })
+        .order("house_number", { ascending: true }),
+      supabase.from("members").select("house_id"),
+      supabase.from("vehicles").select("house_id"),
+    ]);
 
-    if (error) throw error;
+    if (housesRes.error) throw housesRes.error;
 
-    res.json(toCamelCase(data));
+    // Build count maps
+    const memberCountMap = {};
+    (membersRes.data || []).forEach((m) => {
+      memberCountMap[m.house_id] = (memberCountMap[m.house_id] || 0) + 1;
+    });
+    const vehicleCountMap = {};
+    (vehiclesRes.data || []).forEach((v) => {
+      vehicleCountMap[v.house_id] = (vehicleCountMap[v.house_id] || 0) + 1;
+    });
+
+    // Enrich houses with counts
+    const enriched = housesRes.data.map((h) => ({
+      ...h,
+      members_count: memberCountMap[h.id] || 0,
+      vehicles_count: vehicleCountMap[h.id] || 0,
+    }));
+
+    res.json(toCamelCase(enriched));
   } catch (err) {
     console.error("Fetch houses error:", err);
     res.status(500).json({ message: "Failed to fetch houses" });
@@ -45,10 +66,12 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const dbData = toSnakeCase(req.body);
-    // Remove id if sent from frontend (let DB generate it)
+    // Remove fields not in the houses table
     delete dbData.id;
     delete dbData.created_at;
     delete dbData.updated_at;
+    delete dbData.members_count;
+    delete dbData.vehicles_count;
 
     const { data, error } = await supabase
       .from("houses")
@@ -72,6 +95,8 @@ router.put("/:id", async (req, res) => {
     delete dbData.id;
     delete dbData.created_at;
     delete dbData.updated_at;
+    delete dbData.members_count;
+    delete dbData.vehicles_count;
 
     const { data, error } = await supabase
       .from("houses")

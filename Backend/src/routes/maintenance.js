@@ -56,6 +56,16 @@ router.post("/", async (req, res) => {
       dbData.total_amount = base + late + extra;
     }
 
+    // Auto-populate owner_name from houses if empty
+    if ((!dbData.owner_name || dbData.owner_name === "") && dbData.house_id) {
+      const { data: house } = await supabase
+        .from("houses")
+        .select("owner_name")
+        .eq("id", dbData.house_id)
+        .single();
+      if (house) dbData.owner_name = house.owner_name || "";
+    }
+
     const { data, error } = await supabase
       .from("maintenance_records")
       .insert(dbData)

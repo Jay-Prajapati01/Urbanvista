@@ -31,6 +31,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { toast } from "sonner";
 import {
   Plus,
@@ -44,6 +49,8 @@ import {
   CheckCircle,
   Clock,
   AlertCircle,
+  ChevronDown,
+  ChevronRight,
   Loader2,
 } from "lucide-react";
 import {
@@ -52,6 +59,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { exportToCsv } from "@/lib/csv";
+import { generateReceipt } from "@/lib/receipt";
 
 export default function Maintenance() {
   const { isDemo, isAuthenticated } = useAuth();
@@ -59,6 +68,7 @@ export default function Maintenance() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [openBlocks, setOpenBlocks] = useState<Record<string, boolean>>({});
 
   // Form state
   const [newRecord, setNewRecord] = useState({
@@ -99,6 +109,29 @@ export default function Maintenance() {
     return matchesSearch && matchesStatus;
   });
 
+  // Get block from houseNumber (e.g. "A-101" → "A")
+  const getBlock = (houseNumber: string) => houseNumber.split("-")[0];
+
+  // Group by block
+  const groupedByBlock = filteredRecords.reduce((acc, record) => {
+    const block = getBlock(record.houseNumber);
+    if (!acc[block]) acc[block] = [];
+    acc[block].push(record);
+    return acc;
+  }, {} as Record<string, MaintenanceRecord[]>);
+
+  const toggleBlock = (block: string) => {
+    setOpenBlocks((prev) => ({ ...prev, [block]: !prev[block] }));
+  };
+
+  const toggleAllBlocks = (open: boolean) => {
+    const newState: Record<string, boolean> = {};
+    Object.keys(groupedByBlock).forEach((block) => {
+      newState[block] = open;
+    });
+    setOpenBlocks(newState);
+  };
+
   const handleAction = (action: string, record: MaintenanceRecord) => {
     if (isDemo && action !== "Download") {
       toast.info("Demo mode – changes are disabled");
@@ -109,9 +142,30 @@ export default function Maintenance() {
         queryClient.invalidateQueries({ queryKey: ["maintenance"] });
         toast.success("Record deleted");
       });
+    } else if (action === "Download") {
+      generateReceipt(record);
+      toast.success(`Receipt generated for ${record.houseNumber}`);
     } else {
       toast.success(`${action} for ${record.houseNumber}`);
     }
+  };
+
+  const handleExportCsv = () => {
+    exportToCsv("maintenance_records", recordsList as Record<string, unknown>[], [
+      { header: "House Number", key: "houseNumber" },
+      { header: "Owner Name", key: "ownerName" },
+      { header: "From Month", key: "fromMonth" },
+      { header: "To Month", key: "toMonth" },
+      { header: "Base Amount", key: "baseAmount" },
+      { header: "Late Fee", key: "lateFee" },
+      { header: "Extra Charges", key: "extraCharges" },
+      { header: "Total Amount", key: "totalAmount" },
+      { header: "Amount Paid", key: "amountPaid" },
+      { header: "Balance", key: "totalAmount", format: (_v, row) => String((Number(row.totalAmount) || 0) - (Number(row.amountPaid) || 0)) },
+      { header: "Payment Method", key: "paymentMethod" },
+      { header: "Status", key: "status" },
+    ]);
+    toast.success("CSV exported successfully");
   };
 
   const getStatusBadge = (status: MaintenanceRecord["status"]) => {
@@ -158,7 +212,12 @@ export default function Maintenance() {
             <h1 className="text-2xl font-bold text-foreground">Maintenance</h1>
             <p className="text-muted-foreground">Track monthly maintenance billing and payments</p>
           </div>
-          <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={handleExportCsv}>
+              <Download className="w-4 h-4 mr-2" />
+              Export CSV
+            </Button>
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
               <Button variant="hero" disabled={isDemo}>
                 <Plus className="w-4 h-4 mr-2" />
@@ -267,6 +326,7 @@ export default function Maintenance() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          </div>
         </div>
 
         {/* Stats */}
@@ -336,61 +396,123 @@ export default function Maintenance() {
           </Select>
         </div>
 
-        {/* Records table */}
-        <div className="glass-card overflow-hidden animate-fade-up delay-300">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>House</TableHead>
-                <TableHead>Owner</TableHead>
-                <TableHead>Period</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Paid</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Payment Method</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredRecords.map((record) => (
-                <TableRow key={record.id} className="table-row-hover">
-                  <TableCell className="font-medium text-foreground">{record.houseNumber}</TableCell>
-                  <TableCell className="text-muted-foreground">{record.ownerName}</TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {record.fromMonth} to {record.toMonth}
-                  </TableCell>
-                  <TableCell className="font-medium text-foreground">
-                    ₹{(record.totalAmount ?? 0).toLocaleString()}
-                  </TableCell>
-                  <TableCell className="font-medium text-steel-blue">
-                    ₹{(record.amountPaid ?? 0).toLocaleString()}
-                  </TableCell>
-                  <TableCell>{getStatusBadge(record.status)}</TableCell>
-                  <TableCell className="text-muted-foreground">{record.paymentMethod}</TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="w-4 h-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => handleAction("Edit", record)}>
-                          <Pencil className="w-4 h-4 mr-2" />
-                          Edit
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction("Download", record)}>
-                          <Download className="w-4 h-4 mr-2" />
-                          Download Receipt
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        {/* Expand/Collapse All */}
+        <div className="flex items-center gap-2 animate-fade-up delay-200">
+          <Button variant="outline" size="sm" onClick={() => toggleAllBlocks(true)}>
+            Expand All
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => toggleAllBlocks(false)}>
+            Collapse All
+          </Button>
         </div>
+
+        {/* Records grouped by block — Collapsible */}
+        {Object.entries(groupedByBlock)
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([block, blockRecords]) => {
+            const paidCount = blockRecords.filter((r) => r.status === "Paid").length;
+            const pendingCount = blockRecords.filter((r) => r.status === "Pending").length;
+            const overdueCount = blockRecords.filter((r) => r.status === "Overdue").length;
+            const isOpen = openBlocks[block] ?? false;
+
+            return (
+              <Collapsible
+                key={block}
+                open={isOpen}
+                onOpenChange={() => toggleBlock(block)}
+                className="glass-card overflow-hidden animate-fade-up delay-300"
+              >
+                <CollapsibleTrigger asChild>
+                  <button className="w-full px-6 py-4 border-b border-border bg-secondary/30 flex items-center justify-between hover:bg-secondary/50 transition-colors duration-200 cursor-pointer">
+                    <div className="flex items-center gap-3">
+                      {isOpen ? (
+                        <ChevronDown className="w-5 h-5 text-steel-blue transition-transform duration-200" />
+                      ) : (
+                        <ChevronRight className="w-5 h-5 text-steel-blue transition-transform duration-200" />
+                      )}
+                      <div className="text-left">
+                        <h3 className="font-semibold text-foreground">Block {block}</h3>
+                        <p className="text-sm text-muted-foreground">{blockRecords.length} records</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm">
+                      {paidCount > 0 && (
+                        <span className="badge-status badge-paid flex items-center gap-1">
+                          <CheckCircle className="w-3 h-3" /> {paidCount} Paid
+                        </span>
+                      )}
+                      {pendingCount > 0 && (
+                        <span className="badge-status badge-pending flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> {pendingCount} Pending
+                        </span>
+                      )}
+                      {overdueCount > 0 && (
+                        <span className="badge-status bg-destructive/10 text-destructive border border-destructive/20 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" /> {overdueCount} Overdue
+                        </span>
+                      )}
+                    </div>
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>House</TableHead>
+                        <TableHead>Owner</TableHead>
+                        <TableHead>Period</TableHead>
+                        <TableHead>Amount</TableHead>
+                        <TableHead>Paid</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Payment Method</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {blockRecords
+                        .sort((a, b) => a.houseNumber.localeCompare(b.houseNumber))
+                        .map((record) => (
+                        <TableRow key={record.id} className="table-row-hover">
+                          <TableCell className="font-medium text-foreground">{record.houseNumber}</TableCell>
+                          <TableCell className="text-muted-foreground">{record.ownerName}</TableCell>
+                          <TableCell className="text-muted-foreground">
+                            {record.fromMonth} to {record.toMonth}
+                          </TableCell>
+                          <TableCell className="font-medium text-foreground">
+                            ₹{(record.totalAmount ?? 0).toLocaleString()}
+                          </TableCell>
+                          <TableCell className="font-medium text-steel-blue">
+                            ₹{(record.amountPaid ?? 0).toLocaleString()}
+                          </TableCell>
+                          <TableCell>{getStatusBadge(record.status)}</TableCell>
+                          <TableCell className="text-muted-foreground">{record.paymentMethod}</TableCell>
+                          <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                  <MoreHorizontal className="w-4 h-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => handleAction("Edit", record)}>
+                                  <Pencil className="w-4 h-4 mr-2" />
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleAction("Download", record)}>
+                                  <Download className="w-4 h-4 mr-2" />
+                                  Download Receipt
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </CollapsibleContent>
+              </Collapsible>
+            );
+          })}
 
         {filteredRecords.length === 0 && (
           <div className="glass-card p-12 text-center">

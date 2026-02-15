@@ -31,6 +31,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import { toast } from "sonner";
 import {
   Plus,
@@ -41,7 +46,10 @@ import {
   MoreHorizontal,
   Pencil,
   Trash2,
+  ChevronDown,
+  ChevronRight,
   Loader2,
+  Building2,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -56,6 +64,7 @@ export default function Vehicles() {
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [openBlocks, setOpenBlocks] = useState<Record<string, boolean>>({});
 
   // Form state
   const [newVehicle, setNewVehicle] = useState({ vehicleNumber: "", type: "Four Wheeler" as Vehicle["type"], color: "", houseId: "" });
@@ -104,10 +113,14 @@ export default function Vehicles() {
     return matchesSearch && matchesType;
   });
 
-  // Group by house
-  const groupedVehicles = filteredVehicles.reduce((acc, vehicle) => {
-    if (!acc[vehicle.houseNumber]) acc[vehicle.houseNumber] = [];
-    acc[vehicle.houseNumber].push(vehicle);
+  // Get block from houseNumber (e.g. "A-101" → "A")
+  const getBlock = (houseNumber: string) => houseNumber.split("-")[0];
+
+  // Group by block
+  const groupedByBlock = filteredVehicles.reduce((acc, vehicle) => {
+    const block = getBlock(vehicle.houseNumber);
+    if (!acc[block]) acc[block] = [];
+    acc[block].push(vehicle);
     return acc;
   }, {} as Record<string, Vehicle[]>);
 
@@ -121,6 +134,18 @@ export default function Vehicles() {
     } else {
       toast.success(`${action} ${vehicle.vehicleNumber}`);
     }
+  };
+
+  const toggleBlock = (block: string) => {
+    setOpenBlocks((prev) => ({ ...prev, [block]: !prev[block] }));
+  };
+
+  const toggleAllBlocks = (open: boolean) => {
+    const newState: Record<string, boolean> = {};
+    Object.keys(groupedByBlock).forEach((block) => {
+      newState[block] = open;
+    });
+    setOpenBlocks(newState);
   };
 
   // Calculate stats
@@ -280,94 +305,140 @@ export default function Vehicles() {
           </Select>
         </div>
 
-        {/* Vehicles grouped by house */}
-        {Object.entries(groupedVehicles)
+        {/* Expand/Collapse All */}
+        <div className="flex items-center gap-2 animate-fade-up delay-200">
+          <Button variant="outline" size="sm" onClick={() => toggleAllBlocks(true)}>
+            Expand All
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => toggleAllBlocks(false)}>
+            Collapse All
+          </Button>
+        </div>
+
+        {/* Vehicles grouped by block — Collapsible */}
+        {Object.entries(groupedByBlock)
           .sort(([a], [b]) => a.localeCompare(b))
-          .map(([houseNumber, houseVehicles]) => (
-            <div key={houseNumber} className="glass-card overflow-hidden animate-fade-up delay-300">
-              <div className="px-6 py-4 border-b border-border bg-secondary/30">
-                <h3 className="font-semibold text-foreground">{houseNumber}</h3>
-                <p className="text-sm text-muted-foreground">{houseVehicles.length} vehicles</p>
-              </div>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Vehicle Number</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Color</TableHead>
-                    <TableHead>Owner</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {houseVehicles.map((vehicle) => (
-                    <TableRow key={vehicle.id} className="table-row-hover">
-                      <TableCell className="font-medium text-foreground font-mono">
-                        {vehicle.vehicleNumber}
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          {vehicle.type === "Two Wheeler" ? (
-                            <Bike className="w-4 h-4 text-muted-foreground" />
-                          ) : (
-                            <Car className="w-4 h-4 text-muted-foreground" />
-                          )}
-                          {vehicle.type}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="w-4 h-4 rounded-full border border-border"
-                            style={{
-                              backgroundColor:
-                                vehicle.color.toLowerCase() === "white"
-                                  ? "#f8f8f8"
-                                  : vehicle.color.toLowerCase() === "black"
-                                  ? "#1a1a1a"
-                                  : vehicle.color.toLowerCase() === "silver"
-                                  ? "#c0c0c0"
-                                  : vehicle.color.toLowerCase() === "blue"
-                                  ? "#3b82f6"
-                                  : vehicle.color.toLowerCase() === "red"
-                                  ? "#ef4444"
-                                  : vehicle.color.toLowerCase() === "gray"
-                                  ? "#6b7280"
-                                  : "#9ca3af",
-                            }}
-                          />
-                          {vehicle.color}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-muted-foreground">{vehicle.ownerName}</TableCell>
-                      <TableCell className="text-right">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                              <MoreHorizontal className="w-4 h-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            <DropdownMenuItem onClick={() => handleAction("Edit", vehicle)}>
-                              <Pencil className="w-4 h-4 mr-2" />
-                              Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              onClick={() => handleAction("Delete", vehicle)}
-                              className="text-destructive"
-                            >
-                              <Trash2 className="w-4 h-4 mr-2" />
-                              Delete
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          ))}
+          .map(([block, blockVehicles]) => {
+            const twoW = blockVehicles.filter((v) => v.type === "Two Wheeler").length;
+            const fourW = blockVehicles.filter((v) => v.type === "Four Wheeler").length;
+            const isOpen = openBlocks[block] ?? false;
+
+            return (
+              <Collapsible
+                key={block}
+                open={isOpen}
+                onOpenChange={() => toggleBlock(block)}
+                className="glass-card overflow-hidden animate-fade-up delay-300"
+              >
+                <CollapsibleTrigger asChild>
+                  <button className="w-full px-6 py-4 border-b border-border bg-secondary/30 flex items-center justify-between hover:bg-secondary/50 transition-colors duration-200 cursor-pointer">
+                    <div className="flex items-center gap-3">
+                      {isOpen ? (
+                        <ChevronDown className="w-5 h-5 text-steel-blue transition-transform duration-200" />
+                      ) : (
+                        <ChevronRight className="w-5 h-5 text-steel-blue transition-transform duration-200" />
+                      )}
+                      <div className="text-left">
+                        <h3 className="font-semibold text-foreground">Block {block}</h3>
+                        <p className="text-sm text-muted-foreground">{blockVehicles.length} vehicles</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm">
+                      <span className="badge-status badge-occupied flex items-center gap-1">
+                        <Car className="w-3 h-3" /> {fourW} Four Wheeler
+                      </span>
+                      <span className="badge-status badge-vacant flex items-center gap-1">
+                        <Bike className="w-3 h-3" /> {twoW} Two Wheeler
+                      </span>
+                    </div>
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Vehicle Number</TableHead>
+                        <TableHead>Type</TableHead>
+                        <TableHead>Color</TableHead>
+                        <TableHead>House</TableHead>
+                        <TableHead>Owner</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {blockVehicles
+                        .sort((a, b) => a.houseNumber.localeCompare(b.houseNumber))
+                        .map((vehicle) => (
+                        <TableRow key={vehicle.id} className="table-row-hover">
+                          <TableCell className="font-medium text-foreground font-mono">
+                            {vehicle.vehicleNumber}
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              {vehicle.type === "Two Wheeler" ? (
+                                <Bike className="w-4 h-4 text-muted-foreground" />
+                              ) : (
+                                <Car className="w-4 h-4 text-muted-foreground" />
+                              )}
+                              {vehicle.type}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <div
+                                className="w-4 h-4 rounded-full border border-border"
+                                style={{
+                                  backgroundColor:
+                                    vehicle.color.toLowerCase() === "white"
+                                      ? "#f8f8f8"
+                                      : vehicle.color.toLowerCase() === "black"
+                                      ? "#1a1a1a"
+                                      : vehicle.color.toLowerCase() === "silver"
+                                      ? "#c0c0c0"
+                                      : vehicle.color.toLowerCase() === "blue"
+                                      ? "#3b82f6"
+                                      : vehicle.color.toLowerCase() === "red"
+                                      ? "#ef4444"
+                                      : vehicle.color.toLowerCase() === "gray"
+                                      ? "#6b7280"
+                                      : "#9ca3af",
+                                }}
+                              />
+                              {vehicle.color}
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-medium text-foreground">{vehicle.houseNumber}</TableCell>
+                          <TableCell className="text-muted-foreground">{vehicle.ownerName}</TableCell>
+                          <TableCell className="text-right">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                  <MoreHorizontal className="w-4 h-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => handleAction("Edit", vehicle)}>
+                                  <Pencil className="w-4 h-4 mr-2" />
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  onClick={() => handleAction("Delete", vehicle)}
+                                  className="text-destructive"
+                                >
+                                  <Trash2 className="w-4 h-4 mr-2" />
+                                  Delete
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </CollapsibleContent>
+              </Collapsible>
+            );
+          })}
 
         {filteredVehicles.length === 0 && (
           <div className="glass-card p-12 text-center">

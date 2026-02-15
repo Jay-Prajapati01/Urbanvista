@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
+import { exportToCsv } from "@/lib/csv";
 import {
   Plus,
   Search,
@@ -130,6 +131,18 @@ export default function Expenditures() {
     }
   };
 
+  const handleExportCsv = () => {
+    exportToCsv("expenditures", expendituresList as Record<string, unknown>[], [
+      { header: "Title", key: "title" },
+      { header: "Category", key: "category" },
+      { header: "Amount (₹)", key: "amount" },
+      { header: "Payment Mode", key: "paymentMode" },
+      { header: "Date", key: "date" },
+      { header: "Description", key: "description" },
+    ]);
+    toast.success("CSV exported successfully");
+  };
+
   // Calculate stats
   const totalExpenses = expendituresList.reduce((acc, e) => acc + e.amount, 0);
   const categoryTotals = expendituresList.reduce((acc, e) => {
@@ -161,7 +174,7 @@ export default function Expenditures() {
             <p className="text-muted-foreground">Track all society expenses</p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" onClick={() => toast.success("CSV exported")}>
+            <Button variant="outline" onClick={handleExportCsv}>
               <Download className="w-4 h-4 mr-2" />
               Export CSV
             </Button>
