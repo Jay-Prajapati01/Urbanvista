@@ -235,9 +235,16 @@ Create a `.env` file in the `Backend/` directory:
 ```env
 PORT=5000
 SUPABASE_URL=https://your-project-id.supabase.co
-SUPABASE_KEY=your-supabase-anon-key
+SUPABASE_ANON_KEY=your-supabase-anon-key
+# SUPABASE_KEY is also accepted for backward compatibility
 JWT_SECRET=your-secret-key-here
+
+# Razorpay TEST mode only
+RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxxx
+RAZORPAY_KEY_SECRET=xxxxxxxxxxxxxxxxxxxx
 ```
+
+You can copy `Backend/.env.example` and update values.
 
 > **Tip:** Generate a strong JWT secret: `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"`
 
@@ -265,6 +272,8 @@ npm install
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
+
+You can copy `Frontend/.env.example` and update values.
 
 > By default, the frontend connects to `http://localhost:5000/api`.
 
@@ -336,8 +345,9 @@ All protected endpoints require a `Bearer` token in the `Authorization` header.
 ### Maintenance
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/api/maintenance` | List all records (with owner names) |
-| `POST` | `/api/maintenance` | Create a record (auto-populates owner) |
+| `GET` | `/api/maintenance` | List all records with dynamic due/late-fee calculations |
+| `GET` | `/api/maintenance/user` | Resident-scoped maintenance bills |
+| `POST` | `/api/maintenance` | Create a bill with due date + resident linkage |
 | `PUT` | `/api/maintenance/:id` | Update a record |
 | `DELETE` | `/api/maintenance/:id` | Delete a record |
 
@@ -358,6 +368,20 @@ All protected endpoints require a `Bearer` token in the `Authorization` header.
 | `GET` | `/api/reports/late-payments` | Overdue & pending records |
 | `GET` | `/api/reports/vacant-properties` | Vacant houses |
 
+### Resident Payments (Razorpay TEST mode)
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/user/payments` | Resident maintenance records for their house |
+| `GET` | `/api/user/payments/statement` | Resident payment summary + records + payment attempts |
+| `GET` | `/api/user/payments/receipts` | Resident receipts (legacy-compatible endpoint) |
+| `GET` | `/api/receipts/user` | Resident receipt list with receipt number + Razorpay IDs |
+| `POST` | `/api/user/payments/create-order` | Create Razorpay order for due maintenance |
+| `POST` | `/api/user/payments/verify` | Verify Razorpay signature and finalize payment |
+| `POST` | `/api/user/payments/attempt` | Track failed/cancelled payment attempts |
+
+The payment lifecycle is implemented as:
+`Pay Now` -> create order -> Razorpay checkout -> verify signature on backend -> store payment -> update maintenance status on capture -> sync activity/payment reports.
+
 ### Health Check
 | Method | Endpoint | Description |
 |---|---|---|
@@ -373,8 +397,13 @@ All protected endpoints require a `Bearer` token in the `Authorization` header.
 | `houses` | House/flat registry with block, floor, status, owner info |
 | `members` | Residents linked to houses (Owner/Tenant/Family) |
 | `vehicles` | Vehicles linked to houses (Two Wheeler/Four Wheeler) |
-| `maintenance_records` | Monthly billing with amounts, payment status, method |
+| `maintenance_records` | Due-date billing (base, extra, late fee/day, due amount, paid amount, status) |
+| `payments` | Razorpay order/payment lifecycle records |
+| `receipts` | Generated payment receipts linked to payment + maintenance |
 | `expenditures` | Society expenses categorized and tracked |
+
+For due-date billing + receipts schema rollout, run:
+- `Backend/database/phase3_maintenance_due_receipts.sql`
 
 All tables have:
 - UUID primary keys (auto-generated)

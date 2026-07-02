@@ -1,164 +1,103 @@
-import { useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
-import { Expenditure } from "@/lib/data";
-import { expendituresApi } from "@/lib/api";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { expendituresApi } from "@/lib/api";
+import type { Expenditure } from "@/lib/data";
+import { useQuery } from "@tanstack/react-query";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { toast } from "sonner";
-import { exportToCsv } from "@/lib/csv";
-import {
-  Plus,
-  Search,
-  Filter,
   Receipt,
-  Download,
-  MoreHorizontal,
-  Pencil,
-  Trash2,
-  Zap,
-  Shield,
-  Wrench,
-  Sparkles,
-  FileText,
-  MoreVertical,
+  TrendingDown,
   Loader2,
+  RefreshCw,
+  DollarSign,
 } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Area,
+  AreaChart,
+} from "recharts";
+import { format } from "date-fns";
 
-const categoryIcons: Record<string, React.ElementType> = {
-  Utilities: Zap,
-  Security: Shield,
-  Maintenance: Wrench,
-  Cleaning: Sparkles,
-  Admin: FileText,
-  Other: MoreVertical,
+const CATEGORY_COLORS: Record<string, string> = {
+  Utilities: "#3b82f6",
+  Maintenance: "#10b981",
+  Security: "#f59e0b",
+  Cleaning: "#8b5cf6",
+  Admin: "#ec4899",
+  Other: "#6b7280",
 };
 
 export default function Expenditures() {
-  const { isDemo, isAuthenticated } = useAuth();
-  const queryClient = useQueryClient();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState<string>("all");
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const { isAuthenticated, isDemo } = useAuth();
 
-  // Form state
-  const [newExpense, setNewExpense] = useState({
-    title: "", category: "Maintenance" as Expenditure["category"],
-    amount: 0, paymentMode: "UPI" as Expenditure["paymentMode"], date: "", description: "",
-  });
-
-  // Fetch from API
-  const { data: expendituresList = [], isLoading } = useQuery<Expenditure[]>({
+  const { data: expenses = [], isLoading, refetch, isFetching } = useQuery<Expenditure[]>({
     queryKey: ["expenditures"],
-    queryFn: expendituresApi.getAll,
+    queryFn: () => expendituresApi.getAll(),
     enabled: isAuthenticated && !isDemo,
   });
 
-  const createMutation = useMutation({
-    mutationFn: (data: Partial<Expenditure>) => expendituresApi.create(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["expenditures"] });
-      toast.success("Expense added successfully");
-      setIsAddDialogOpen(false);
-      setNewExpense({ title: "", category: "Maintenance", amount: 0, paymentMode: "UPI", date: "", description: "" });
-    },
-    onError: (err: Error) => toast.error(err.message),
-  });
+  const expensesArray = expenses;
 
-  const deleteMutation = useMutation({
-    mutationFn: (id: string) => expendituresApi.delete(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["expenditures"] });
-      toast.success("Expense deleted successfully");
-    },
-    onError: (err: Error) => toast.error(err.message),
-  });
+  const categories = [...new Set(expensesArray.map((e) => e.category))].sort();
+  const totalExpenses = expensesArray.reduce((sum: number, e) => sum + (e.amount || 0), 0);
 
-  // Get unique categories
-  const categories = [...new Set(expendituresList.map((e) => e.category))];
+  const expensesByCategory = categories.map((category: string) => ({
+    category,
+    total: expensesArray.filter((e) => e.category === category).reduce((sum: number, e) => sum + (e.amount || 0), 0),
+    count: expensesArray.filter((e) => e.category === category).length,
+  }));
 
-  // Filter expenditures
-  const filteredExpenditures = expendituresList.filter((expenditure) => {
-    const matchesSearch =
-      expenditure.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      expenditure.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = categoryFilter === "all" || expenditure.category === categoryFilter;
-    return matchesSearch && matchesCategory;
-  });
+  const categoryData = expensesByCategory.map((item) => ({
+    name: item.category,
+    value: item.total,
+  }));
 
-  const handleAction = (action: string, expenditure: Expenditure) => {
-    if (isDemo && action !== "Download") {
-      toast.info("Demo mode – changes are disabled");
-      return;
-    }
-    if (action === "Delete") {
-      deleteMutation.mutate(expenditure.id);
-    } else {
-      toast.success(`${action} ${expenditure.title}`);
-    }
-  };
+  const monthlyData = expensesArray
+    .reduce((acc, e) => {
+      const month = format(new Date(e.date), "MMM yyyy");
+      if (!acc[month]) {
+        acc[month] = { month, total: 0 };
+      }
+      acc[month].total += e.amount || 0;
+      return acc;
+    }, {} as Record<string, { month: string; total: number }>);
 
-  const handleExportCsv = () => {
-    exportToCsv("expenditures", expendituresList as Record<string, unknown>[], [
-      { header: "Title", key: "title" },
-      { header: "Category", key: "category" },
-      { header: "Amount (₹)", key: "amount" },
-      { header: "Payment Mode", key: "paymentMode" },
-      { header: "Date", key: "date" },
-      { header: "Description", key: "description" },
-    ]);
-    toast.success("CSV exported successfully");
-  };
+  const sortedMonthlyData = Object.values(monthlyData).sort((a, b) => 
+    new Date(a.month).getTime() - new Date(b.month).getTime()
+  );
 
-  // Calculate stats
-  const totalExpenses = expendituresList.reduce((acc, e) => acc + e.amount, 0);
-  const categoryTotals = expendituresList.reduce((acc, e) => {
-    acc[e.category] = (acc[e.category] || 0) + e.amount;
+  const paymentModeStats = expensesArray.reduce((acc, e) => {
+    acc[e.paymentMode] = (acc[e.paymentMode] || 0) + (e.amount || 0);
     return acc;
   }, {} as Record<string, number>);
 
-  const sortedCategories = Object.entries(categoryTotals)
-    .sort(([, a], [, b]) => b - a)
-    .slice(0, 4);
+  const paymentModeData = Object.entries(paymentModeStats).map(([mode, amount]) => ({
+    mode,
+    amount,
+  }));
+
+  const highestCategory = expensesByCategory.reduce((max, cat) => 
+    cat.total > max.total ? cat : max, { category: "None", total: 0, count: 0 }
+  );
+
+  const avgExpense = expensesArray.length > 0 ? totalExpenses / expensesArray.length : 0;
 
   if (isLoading) {
     return (
       <AdminLayout>
-        <div className="flex items-center justify-center h-[60vh]">
+        <div className="flex items-center justify-center h-64">
           <Loader2 className="w-8 h-8 animate-spin text-steel-blue" />
+          <span className="ml-3 text-muted-foreground">Loading expenditures data...</span>
         </div>
       </AdminLayout>
     );
@@ -167,233 +106,198 @@ export default function Expenditures() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 animate-fade-up">
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Expenditures</h1>
-            <p className="text-muted-foreground">Track all society expenses</p>
+            <h1 className="text-2xl lg:text-3xl font-bold text-foreground">Expenditures Overview</h1>
+            <p className="text-muted-foreground mt-1">
+              Financial summary and category breakdown of all expenses
+            </p>
           </div>
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={handleExportCsv}>
-              <Download className="w-4 h-4 mr-2" />
-              Export CSV
-            </Button>
-            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-              <DialogTrigger asChild>
-                <Button variant="hero" disabled={isDemo}>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Expense
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Add New Expense</DialogTitle>
-                  <DialogDescription>
-                    Enter the expense details.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <div className="space-y-2">
-                    <Label>Title</Label>
-                    <Input placeholder="e.g. Electricity Bill" value={newExpense.title} onChange={(e) => setNewExpense({ ...newExpense, title: e.target.value })} />
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>Category</Label>
-                      <Select value={newExpense.category} onValueChange={(v) => setNewExpense({ ...newExpense, category: v as Expenditure["category"] })}>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Utilities">Utilities</SelectItem>
-                          <SelectItem value="Maintenance">Maintenance</SelectItem>
-                          <SelectItem value="Security">Security</SelectItem>
-                          <SelectItem value="Cleaning">Cleaning</SelectItem>
-                          <SelectItem value="Admin">Admin</SelectItem>
-                          <SelectItem value="Other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Amount (₹)</Label>
-                      <Input type="number" placeholder="0" value={newExpense.amount || ""} onChange={(e) => setNewExpense({ ...newExpense, amount: Number(e.target.value) })} />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label>Payment Mode</Label>
-                      <Select value={newExpense.paymentMode} onValueChange={(v) => setNewExpense({ ...newExpense, paymentMode: v as Expenditure["paymentMode"] })}>
-                        <SelectTrigger>
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Cash">Cash</SelectItem>
-                          <SelectItem value="UPI">UPI</SelectItem>
-                          <SelectItem value="Bank Transfer">Bank Transfer</SelectItem>
-                          <SelectItem value="Cheque">Cheque</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="space-y-2">
-                      <Label>Date</Label>
-                      <Input type="date" value={newExpense.date} onChange={(e) => setNewExpense({ ...newExpense, date: e.target.value })} />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Description</Label>
-                    <Textarea placeholder="Brief description of the expense..." value={newExpense.description} onChange={(e) => setNewExpense({ ...newExpense, description: e.target.value })} />
-                  </div>
-                </div>
-                <DialogFooter>
-                  <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button
-                    disabled={createMutation.isPending}
-                    onClick={() => {
-                      if (isDemo) { toast.info("Demo mode – changes are disabled"); setIsAddDialogOpen(false); return; }
-                      createMutation.mutate({
-                        title: newExpense.title,
-                        category: newExpense.category,
-                        amount: newExpense.amount,
-                        paymentMode: newExpense.paymentMode,
-                        date: newExpense.date,
-                        description: newExpense.description,
-                      });
-                    }}
-                  >
-                    {createMutation.isPending ? "Adding..." : "Add Expense"}
-                  </Button>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
-          </div>
+          <button
+            onClick={() => refetch()}
+            disabled={isFetching}
+            className="flex items-center gap-2 px-4 py-2 text-sm border rounded-lg hover:bg-muted/50 transition-colors"
+          >
+            <RefreshCw className={`w-4 h-4 ${isFetching ? "animate-spin" : ""}`} />
+            Refresh
+          </button>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 animate-fade-up delay-100">
-          <div className="stat-card lg:col-span-1">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Total Expenses</p>
-                <p className="text-2xl font-bold text-foreground">₹{totalExpenses.toLocaleString()}</p>
-              </div>
-              <Receipt className="w-5 h-5 text-steel-blue" />
-            </div>
-          </div>
-          {sortedCategories.map(([category, amount]) => {
-            const Icon = categoryIcons[category] || FileText;
-            return (
-              <div key={category} className="stat-card">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground">{category}</p>
-                    <p className="text-xl font-bold text-foreground">₹{amount.toLocaleString()}</p>
-                  </div>
-                  <Icon className="w-5 h-5 text-steel-blue" />
-                </div>
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
+              <TrendingDown className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">₹{totalExpenses.toLocaleString()}</div>
+              <p className="text-xs text-muted-foreground">{expenses.length} transactions</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Highest Category</CardTitle>
+              <DollarSign className="h-4 w-4 text-red-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-red-500">{highestCategory.category}</div>
+              <p className="text-xs text-muted-foreground">₹{highestCategory.total.toLocaleString()}</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Avg Expense</CardTitle>
+              <Receipt className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">₹{avgExpense.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
+              <p className="text-xs text-muted-foreground">per transaction</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Categories</CardTitle>
+              <Receipt className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{categories.length}</div>
+              <p className="text-xs text-muted-foreground">types of expenses</p>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-col sm:flex-row gap-4 animate-fade-up delay-200">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Search expenses..."
-              className="pl-10"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-          <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-            <SelectTrigger className="w-[180px]">
-              <Filter className="w-4 h-4 mr-2" />
-              <SelectValue placeholder="Category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              {categories.map((category) => (
-                <SelectItem key={category} value={category}>
-                  {category}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <div className="grid lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Category-wise Expenses</CardTitle>
+              <CardDescription>Distribution of expenses by category</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={expensesByCategory} layout="vertical">
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis type="number" tick={{ fontSize: 12 }} />
+                  <YAxis dataKey="category" type="category" tick={{ fontSize: 12 }} width={80} />
+                  <Tooltip formatter={(value) => `₹${Number(value).toLocaleString()}`} />
+                  <Bar dataKey="total" name="Amount" radius={[0, 4, 4, 0]}>
+                    {expensesByCategory.map((entry) => (
+                      <Cell key={entry.category} fill={CATEGORY_COLORS[entry.category] || "#6b7280"} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
 
-        {/* Expenditures table */}
-        <div className="glass-card overflow-hidden animate-fade-up delay-300">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>Payment Mode</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Description</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredExpenditures.map((expenditure) => {
-                const Icon = categoryIcons[expenditure.category] || FileText;
-                return (
-                  <TableRow key={expenditure.id} className="table-row-hover">
-                    <TableCell className="font-medium text-foreground">{expenditure.title}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Icon className="w-4 h-4 text-muted-foreground" />
-                        <span className="badge-status badge-vacant">{expenditure.category}</span>
+          <Card>
+            <CardHeader>
+              <CardTitle>Payment Mode Distribution</CardTitle>
+              <CardDescription>Expenses by payment method</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {paymentModeData.map((item) => {
+                  const percentage = totalExpenses > 0 ? (item.amount / totalExpenses) * 100 : 0;
+                  return (
+                    <div key={item.mode}>
+                      <div className="flex justify-between text-sm mb-1">
+                        <span>{item.mode}</span>
+                        <span className="font-medium">₹{item.amount.toLocaleString()}</span>
                       </div>
-                    </TableCell>
-                    <TableCell className="font-medium text-foreground">
-                      ₹{expenditure.amount.toLocaleString()}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">{expenditure.paymentMode}</TableCell>
-                    <TableCell className="text-muted-foreground">{expenditure.date}</TableCell>
-                    <TableCell className="text-muted-foreground max-w-[200px] truncate">
-                      {expenditure.description}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
-                            <MoreHorizontal className="w-4 h-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleAction("Edit", expenditure)}>
-                            <Pencil className="w-4 h-4 mr-2" />
-                            Edit
-                          </DropdownMenuItem>
-                          <DropdownMenuItem
-                            onClick={() => handleAction("Delete", expenditure)}
-                            className="text-destructive"
-                          >
-                            <Trash2 className="w-4 h-4 mr-2" />
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
+                      <div className="h-3 bg-muted rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-steel-blue rounded-full transition-all"
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-muted-foreground">{percentage.toFixed(1)}%</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Monthly Expenditure Trend</CardTitle>
+            <CardDescription>Expense distribution over time</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {sortedMonthlyData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={300}>
+                <AreaChart data={sortedMonthlyData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip formatter={(value) => `₹${Number(value).toLocaleString()}`} />
+                  <Area
+                    type="monotone"
+                    dataKey="total"
+                    stroke="#3b82f6"
+                    fill="#3b82f6"
+                    fillOpacity={0.3}
+                    name="Amount"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                No expense data available
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Category-wise Details</CardTitle>
+            <CardDescription>Detailed breakdown by expense category</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {expensesByCategory.map((catData) => {
+                const percentage = totalExpenses > 0 ? (catData.total / totalExpenses) * 100 : 0;
+                return (
+                  <div
+                    key={catData.category}
+                    className="p-4 rounded-lg border bg-card"
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="font-semibold text-lg">{catData.category}</h3>
+                      <div
+                        className="w-4 h-4 rounded-full"
+                        style={{ backgroundColor: CATEGORY_COLORS[catData.category] || "#6b7280" }}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Total</span>
+                        <span className="font-medium">₹{catData.total.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Transactions</span>
+                        <span className="font-medium">{catData.count}</span>
+                      </div>
+                      <div className="pt-2 border-t">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">Share</span>
+                          <Badge variant="secondary">
+                            {percentage.toFixed(1)}%
+                          </Badge>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
-            </TableBody>
-          </Table>
-        </div>
-
-        {filteredExpenditures.length === 0 && (
-          <div className="glass-card p-12 text-center">
-            <Receipt className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-foreground">No expenses found</h3>
-            <p className="text-muted-foreground mt-1">Try adjusting your search or filters</p>
-          </div>
-        )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </AdminLayout>
   );

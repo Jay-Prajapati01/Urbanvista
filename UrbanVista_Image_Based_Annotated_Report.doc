@@ -1,0 +1,326 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>UrbanVista Full Project Report (Annotated)</title>
+<style>
+  body { font-family: "Times New Roman", serif; line-height: 1.48; margin: 36px; color: #111; }
+  h1, h2, h3 { margin-top: 22px; margin-bottom: 8px; }
+  h1 { text-align: center; text-transform: uppercase; }
+  h2 { text-transform: uppercase; border-bottom: 1px solid #444; padding-bottom: 3px; }
+  .annotation { background: #f6f8fa; border-left: 4px solid #1f6feb; padding: 10px 12px; margin: 10px 0 16px 0; }
+  .meta { color: #444; font-size: 14px; }
+  ul, ol { margin-top: 6px; }
+  li { margin-bottom: 5px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  th, td { border: 1px solid #d0d7de; padding: 8px; text-align: left; font-size: 14px; }
+  th { background: #f4f6f8; }
+  .small { font-size: 13px; }
+</style>
+</head>
+<body>
+
+<h1>UrbanVista Project Report</h1>
+<p class="meta"><strong>Prepared for:</strong> UrbanVista</p>
+<p class="meta"><strong>Date:</strong> 06-Apr-2026</p>
+<p class="meta"><strong>Type:</strong> Full project analysis based on actual codebase (Backend + Frontend + Database scripts)</p>
+
+<h2>Abstract</h2>
+<p>
+UrbanVista is a full-stack Society Management System designed to digitize and centralize the daily operations of residential communities. The platform provides role-based dashboards for Admin, Secretary, and Resident users, and integrates house management, member records, vehicle registry, maintenance billing, expenditures, reports, notifications, activity tracking, and online payment workflows.
+</p>
+<p>
+The frontend is built using React, TypeScript, Vite, Tailwind CSS, and shadcn/ui components. The backend uses Node.js and Express.js with Supabase (PostgreSQL) as the primary database layer. Authentication is JWT-based with dedicated flows for staff and resident accounts, including refresh token lifecycle, login hardening controls, role checks, and secretary assignment scope filtering.
+</p>
+<p>
+UrbanVista reduces manual administrative effort, improves transparency in maintenance collections and expenditures, and enables residents to monitor dues, view receipts, and perform secure online payments through Razorpay integration.
+</p>
+
+<h2>Chapter 1: Introduction</h2>
+<h3>1.1 Background of the Project</h3>
+<p>
+Residential societies often manage operational data across disconnected spreadsheets, registers, and chat groups. This creates delays in billing updates, weak auditability, and inconsistent communication between management and residents.
+</p>
+
+<h3>1.2 Problem Definition</h3>
+<p>
+The primary problems addressed by UrbanVista are:
+</p>
+<ul>
+  <li>No single source of truth for houses, members, and vehicles.</li>
+  <li>Manual maintenance billing and delayed collection tracking.</li>
+  <li>Weak role-based governance for admin and delegated secretary operations.</li>
+  <li>No resident self-service for payment tracking and online dues payment.</li>
+  <li>Limited operational visibility of activity logs, login history, and financial trends.</li>
+</ul>
+
+<h3>1.3 Motivation for the Project</h3>
+<p>
+UrbanVista is motivated by the need to build a secure, scalable, and user-friendly digital platform where operational governance, resident convenience, and financial transparency coexist.
+</p>
+
+<h3>1.4 Objectives and Scope</h3>
+<p><strong>Objectives:</strong></p>
+<ul>
+  <li>Centralize housing society records and operations in one web platform.</li>
+  <li>Provide role-specific workflows for Admin, Secretary, and Resident users.</li>
+  <li>Digitize maintenance billing lifecycle and payment reconciliation.</li>
+  <li>Enable online resident payments and receipt generation.</li>
+  <li>Offer reporting, analytics, CSV exports, and operational monitoring.</li>
+  <li>Maintain secure authentication, authorization, and audit trails.</li>
+</ul>
+
+<p><strong>Scope:</strong></p>
+<ul>
+  <li>Applicable to apartment/society communities and gated housing clusters.</li>
+  <li>Admin scope: full control over data, secretaries, reports, and oversight.</li>
+  <li>Secretary scope: constrained access to assigned flats/blocks via RBAC assignment rules.</li>
+  <li>Resident scope: own-house dashboard, member/vehicle additions, payments and receipts.</li>
+</ul>
+
+<div class="annotation">
+  <strong>Annotation (Code Evidence):</strong> Role partition is wired at API level in server route groups and middleware checks. Resident and staff auth flows are separate and use different JWT secrets.
+</div>
+
+<h2>Chapter 2: Literature Review</h2>
+<p>
+Conventional property/society management commonly uses fragmented tools with limited traceability. Modern management systems typically improve one area (billing, accounting, or communication) but may not tightly integrate role-scoped operational controls, resident-facing payment journeys, and detailed action observability.
+</p>
+<p>
+UrbanVista's architecture aligns with best-practice full-stack management patterns by combining:
+</p>
+<ul>
+  <li>Single backend API gateway (Express routes grouped by domain).</li>
+  <li>Unified relational data model (Supabase/PostgreSQL).</li>
+  <li>Role-sensitive frontend routes and context providers.</li>
+  <li>Operational telemetry (activity, login, notifications, payment transaction trails).</li>
+</ul>
+
+<h2>Chapter 3: System Analysis</h2>
+<h3>3.1 Functional Requirements</h3>
+<p><strong>Admin Features</strong></p>
+<ul>
+  <li>Admin login with token refresh and session management.</li>
+  <li>CRUD for houses, members, vehicles, maintenance, and expenditures.</li>
+  <li>Secretary account lifecycle: create, update, assign scope, reset password, enable/disable.</li>
+  <li>Dashboard metrics and analytics visualization.</li>
+  <li>Activity logs, login history, payment monitoring, and notifications review.</li>
+  <li>CSV data exports and pre-built report generation.</li>
+</ul>
+
+<p><strong>Secretary Features</strong></p>
+<ul>
+  <li>Authentication with role validation and scope-restricted data access.</li>
+  <li>CRUD operations only within assigned house/block permissions.</li>
+  <li>Use of same operational modules (houses/members/vehicles/maintenance/expenditures) under enforced constraints.</li>
+</ul>
+
+<p><strong>Resident Features</strong></p>
+<ul>
+  <li>Signup/login and JWT verification for user panel.</li>
+  <li>Personal dashboard with linked house details, members, vehicles, and maintenance records.</li>
+  <li>Add member/vehicle to own house and update limited house metadata.</li>
+  <li>View payment dues and complete online payments through Razorpay.</li>
+  <li>Access paid receipts list.</li>
+</ul>
+
+<h3>3.2 Non-Functional Requirements</h3>
+<ul>
+  <li><strong>Security:</strong> JWT auth, refresh tokens, brute-force mitigation counters, role and scope checks.</li>
+  <li><strong>Performance:</strong> Ordered data fetches, dashboard fallback aggregation, indexed SQL tables.</li>
+  <li><strong>Usability:</strong> Responsive UI, structured layouts, toasts, tabbed analytics, export utilities.</li>
+  <li><strong>Scalability:</strong> Relational schema with migration scripts for RBAC and activity modules.</li>
+  <li><strong>Reliability:</strong> Health checks and startup status checks for DB and resident-auth readiness.</li>
+</ul>
+
+<h3>3.3 Modules Overview</h3>
+<ol>
+  <li>Authentication and Authorization Module</li>
+  <li>House Management Module</li>
+  <li>Member Management Module</li>
+  <li>Vehicle Management Module</li>
+  <li>Maintenance Billing Module</li>
+  <li>Expenditure Module</li>
+  <li>Reporting and CSV Export Module</li>
+  <li>Secretary Assignment and Scope Module</li>
+  <li>Resident Dashboard and Payment Module</li>
+  <li>Activity Logging and Notification Module</li>
+</ol>
+
+<h2>Chapter 4: Technology Stack</h2>
+<h3>4.1 Frontend</h3>
+<ul>
+  <li>React 18, TypeScript, Vite</li>
+  <li>Tailwind CSS, shadcn/ui, Radix primitives</li>
+  <li>TanStack Query for data fetching and cache synchronization</li>
+  <li>React Router v6 for role-aware route structure</li>
+  <li>Recharts for analytical visualizations</li>
+  <li>Sonner + UI toasters for notifications</li>
+</ul>
+
+<h3>4.2 Backend</h3>
+<ul>
+  <li>Node.js with Express.js REST API</li>
+  <li>Middleware-based separation for staff and resident auth</li>
+  <li>Dedicated domain routes for admin, secretary, and user operations</li>
+  <li>Razorpay integration for payment order creation and signature verification</li>
+</ul>
+
+<h3>4.3 Database and Infra</h3>
+<ul>
+  <li>Supabase PostgreSQL with SQL-first schema definitions</li>
+  <li>Migration scripts: base schema, RBAC phase, activity tracking phase, resident-auth fix</li>
+  <li>RLS enabled on key tables with permissive policies in current setup</li>
+</ul>
+
+<h3>Why These Tools</h3>
+<ul>
+  <li>TypeScript + React provides maintainable UI with strong typing.</li>
+  <li>Express + Supabase gives a practical balance of custom API control and managed DB services.</li>
+  <li>Query caching and shared API clients keep reports and section views consistent.</li>
+  <li>SQL migration scripts make feature evolution explicit and repeatable.</li>
+</ul>
+
+<h2>Chapter 5: System Design and Architecture</h2>
+<h3>5.1 High-Level Architecture</h3>
+<p>
+UrbanVista follows a layered architecture: React client (presentation + route guards) -> Express API (business logic + auth + scope) -> Supabase PostgreSQL (persistent storage).
+</p>
+
+<h3>5.2 Route Design</h3>
+<table>
+  <tr><th>Route Group</th><th>Purpose</th><th>Protection</th></tr>
+  <tr><td>/api/auth</td><td>Staff login/verify/refresh/logout/me</td><td>Public + JWT where needed</td></tr>
+  <tr><td>/api/user-auth</td><td>Resident signup/login/verify/google OAuth</td><td>Public + USER JWT verify</td></tr>
+  <tr><td>/api/houses, /members, /vehicles, /maintenance, /expenditures, /dashboard, /reports</td><td>Core society operations</td><td>staffAuth + role checks (admin/secretary)</td></tr>
+  <tr><td>/api/admin/secretaries</td><td>Secretary account and assignment management</td><td>Admin only</td></tr>
+  <tr><td>/api/activity</td><td>Logs, login history, payments, notifications, summaries</td><td>Admin only</td></tr>
+  <tr><td>/api/user/dashboard, /api/user/payments</td><td>Resident dashboard and payment journeys</td><td>userAuth middleware</td></tr>
+</table>
+
+<h3>5.3 Data Model Highlights</h3>
+<ul>
+  <li><strong>Core entities:</strong> houses, members, vehicles, maintenance_records, expenditures.</li>
+  <li><strong>Staff auth entities:</strong> admin_users, auth_refresh_tokens, login_attempts, audit_logs.</li>
+  <li><strong>RBAC entities:</strong> secretary_assignments for flat/block scope.</li>
+  <li><strong>Resident entities:</strong> users, payments.</li>
+  <li><strong>Observability entities:</strong> activity_logs, login_history, payment_transactions, notifications, secretary_activity_summary.</li>
+</ul>
+
+<div class="annotation">
+  <strong>Annotation (Design):</strong> Secretary scope can be assigned at flat or block level; block assignments are expanded to house IDs via accessScope utility before filtering records.
+</div>
+
+<h2>Chapter 6: Testing</h2>
+<h3>6.1 Testing Performed</h3>
+<ul>
+  <li>API route testing through Postman-style flows for CRUD, auth, and protected endpoints.</li>
+  <li>Role-based scenario testing for admin, secretary, and resident access boundaries.</li>
+  <li>Payment workflow validation for order creation, signature verification, and maintenance status update.</li>
+  <li>UI behavior checks for dashboard metrics, report exports, and form validations.</li>
+</ul>
+
+<h3>6.2 Testing Tools and Means</h3>
+<ul>
+  <li>Postman / API clients for endpoint validation</li>
+  <li>Browser developer tools for frontend and network debugging</li>
+  <li>Supabase SQL editor/table explorer for schema and data verification</li>
+  <li>In-app analytics pages (Activity Logs, Login History) for operational verification</li>
+</ul>
+
+<h3>6.3 Current Testing Status</h3>
+<p>
+The repository currently emphasizes integration and runtime verification workflows over dedicated automated test suites in source. Functional correctness is validated through route behavior, protected-access checks, and dashboard/report outputs.
+</p>
+
+<div class="annotation">
+  <strong>Annotation (Improvement Opportunity):</strong> Add automated backend route tests and frontend component/E2E coverage to complement the existing runtime checks.
+</div>
+
+<h2>Chapter 7: Implementation Details</h2>
+<h3>7.1 Authentication and Session Flow</h3>
+<ul>
+  <li>Staff login issues short-lived access token plus refresh token.</li>
+  <li>Refresh token hashes are stored server-side and can be revoked via logout endpoints.</li>
+  <li>Resident auth is isolated using USER_JWT_SECRET and separate middleware path.</li>
+</ul>
+
+<h3>7.2 Secretary Scope Enforcement</h3>
+<ul>
+  <li>Middleware loads active assignments for secretary accounts.</li>
+  <li>All scoped CRUD routes validate house ownership or block-based permission before mutation.</li>
+  <li>Requests outside assignment scope return 403 responses.</li>
+</ul>
+
+<h3>7.3 Financial and Reporting Flow</h3>
+<ul>
+  <li>Maintenance totals, pending amounts, collection rate, and net balance are computed for dashboard/report views.</li>
+  <li>Reports module supports CSV export and pre-built derived reports (housewise maintenance, late payments, vacant houses).</li>
+  <li>Resident payment success updates maintenance status and receipt availability.</li>
+</ul>
+
+<h3>7.4 Activity and Notification Flow</h3>
+<ul>
+  <li>Activity logs and login history track user actions and sign-in outcomes.</li>
+  <li>Payment transactions and notifications provide operational traceability.</li>
+  <li>Secretary activity summary table is auto-updated via SQL trigger logic.</li>
+</ul>
+
+<h2>Chapter 8: Challenges Faced</h2>
+<ul>
+  <li>Designing secure multi-role flows (admin, secretary, resident) while keeping UX simple.</li>
+  <li>Implementing secretary scope filtering consistently across all domain routes.</li>
+  <li>Managing schema evolution (base schema + RBAC + activity + resident-auth fixes) without breaking API expectations.</li>
+  <li>Handling online payment verification and synchronized maintenance record updates.</li>
+  <li>Keeping analytics pages resilient even when optional tracking tables are not initialized.</li>
+</ul>
+
+<p><strong>Applied Solutions:</strong></p>
+<ul>
+  <li>Separate auth middlewares and JWT secrets for staff and residents.</li>
+  <li>Reusable access scope utilities and scope-aware route guards.</li>
+  <li>SQL migration scripts with schema cache refresh notifications.</li>
+  <li>Best-effort logging wrappers to avoid hard failures on missing optional tables.</li>
+  <li>Razorpay signature validation before persisting captured payment state.</li>
+</ul>
+
+<h2>Chapter 9: Conclusion and Future Scope</h2>
+<h3>9.1 Conclusion</h3>
+<p>
+UrbanVista successfully establishes a comprehensive digital workflow for society administration and resident services. It combines operational CRUD modules, financial tracking, role-based governance, activity observability, and online payments into a cohesive platform. The project demonstrates practical full-stack engineering with real-world concerns such as secure session lifecycle, delegated administrative scope, and data-driven reporting.
+</p>
+
+<h3>9.2 Future Scope</h3>
+<ul>
+  <li>Automated testing pipeline (backend integration tests + frontend E2E coverage).</li>
+  <li>Advanced RLS policies with stricter tenant-isolation semantics.</li>
+  <li>Mobile application for resident self-service and push alerts.</li>
+  <li>Automated reminders for dues, penalties, and scheduled maintenance notices.</li>
+  <li>AI-assisted prediction for delayed payments and expenditure optimization.</li>
+  <li>Multi-society/multi-tenant onboarding under one admin control panel.</li>
+</ul>
+
+<h2>Appendix A: Frontend Route Map</h2>
+<ul class="small">
+  <li>Public: /, /admin/login, /secretary/login, /login, /signup</li>
+  <li>Admin: /admin/dashboard, /admin/houses, /admin/members, /admin/vehicles, /admin/maintenance, /admin/expenditures, /admin/secretaries, /admin/settings, /admin/notifications, /admin/activity-logs, /admin/login-history</li>
+  <li>Secretary: /secretary/dashboard, /secretary/houses, /secretary/members, /secretary/vehicles, /secretary/maintenance, /secretary/expenditures, /secretary/settings</li>
+  <li>Resident: /user/dashboard, /user/payments, /user/receipts</li>
+</ul>
+
+<h2>Appendix B: Key Project Topics Included</h2>
+<ol>
+  <li>Abstract</li>
+  <li>Introduction (Background, Problem, Motivation, Objectives, Scope)</li>
+  <li>Literature Review</li>
+  <li>System Analysis (Functional + Non-Functional + Modules)</li>
+  <li>Technology Stack</li>
+  <li>System Design and Architecture</li>
+  <li>Testing</li>
+  <li>Implementation Details</li>
+  <li>Challenges Faced</li>
+  <li>Conclusion and Future Scope</li>
+  <li>Frontend Route Map</li>
+</ol>
+
+</body>
+</html>

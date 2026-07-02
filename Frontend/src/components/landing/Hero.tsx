@@ -38,18 +38,18 @@ export function Hero() {
             </h1>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
-              UrbanVista empowers administrators to manage houses, members, vehicles, 
-              maintenance, and expenses — all from one powerful, unified dashboard.
+              UrbanVista empowers admins and residents alike — manage houses, members,
+              vehicles, maintenance, and make online payments with instant PDF receipts.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/admin/dashboard">
+              <Link to="/signup">
                 <Button variant="hero" size="xl">
-                  Access Dashboard
+                  Resident Sign Up
                 </Button>
               </Link>
-              <Button 
-                variant="heroOutline" 
+              <Button
+                variant="heroOutline"
                 size="xl"
                 onClick={handleDemoLogin}
               >

@@ -221,6 +221,37 @@
   .delay-500 { animation-delay: 500ms; }
 }
 
+/* Date/month input visibility hardening (light + dark) */
+.date-input-uv {
+  color-scheme: light;
+}
+
+.dark .date-input-uv {
+  color-scheme: dark;
+}
+
+.date-input-uv::-webkit-calendar-picker-indicator {
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.date-input-uv::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.dark .date-input-uv::-webkit-calendar-picker-indicator {
+  filter: invert(0.92) saturate(0.15) brightness(1.25);
+  opacity: 0.95;
+}
+
+.dark .date-input-uv::-webkit-datetime-edit,
+.dark .date-input-uv::-webkit-datetime-edit-text,
+.dark .date-input-uv::-webkit-datetime-edit-month-field,
+.dark .date-input-uv::-webkit-datetime-edit-day-field,
+.dark .date-input-uv::-webkit-datetime-edit-year-field {
+  color: hsl(var(--foreground));
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;

@@ -184,7 +184,9 @@ export default function Reports() {
       else if (r.status === "Pending") h.pendingCount++;
       else if (r.status === "Overdue") h.overdueCount++;
     });
-    const rows = Object.values(houseMap).sort((a, b) => a.houseNumber.localeCompare(b.houseNumber));
+    const rows = Object.values(houseMap).sort((a, b) =>
+      String(a.houseNumber || "").localeCompare(String(b.houseNumber || ""))
+    );
     exportToCsv("housewise_maintenance_status", rows as unknown as Record<string, unknown>[], [
       { header: "House Number", key: "houseNumber" },
       { header: "Owner Name", key: "ownerName" },

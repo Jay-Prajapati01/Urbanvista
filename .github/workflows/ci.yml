@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache node modules (Frontend)
+        uses: actions/cache@v4
+        with:
+          path: Frontend/node_modules
+          key: ${{ runner.os }}-frontend-${{ hashFiles('Frontend/package-lock.json', 'Frontend/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-frontend-
+
+      - name: Cache node modules (Backend)
+        uses: actions/cache@v4
+        with:
+          path: Backend/node_modules
+          key: ${{ runner.os }}-backend-${{ hashFiles('Backend/package-lock.json', 'Backend/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-backend-
+
+      - name: Install Backend deps
+        working-directory: Backend
+        run: npm ci
+
+      - name: Install Frontend deps
+        working-directory: Frontend
+        run: npm ci
+
+      - name: Build Frontend
+        working-directory: Frontend
+        run: npm run build
+
+      - name: Basic Backend smoke
+        working-directory: Backend
+        run: |
+          node --check server.js
+          node --check scripts/apply-phase4-migration.js
+          node --check scripts/e2e-payment-test.js

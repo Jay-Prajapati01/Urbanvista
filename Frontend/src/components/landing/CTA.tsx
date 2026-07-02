@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
 
 export function CTA() {
   return (
@@ -26,20 +25,18 @@ export function CTA() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link to="/admin/dashboard">
+            <Link to="/signup">
               <Button variant="hero" size="xl" className="group">
-                Get Started Today
+                Resident Sign Up
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            <Button
-              variant="heroOutline"
-              size="xl"
-              onClick={() => toast.success("Demo request submitted! We'll contact you soon.")}
-            >
-              <Calendar className="w-5 h-5" />
-              Schedule Demo
-            </Button>
+            <Link to="/admin/login">
+              <Button variant="heroOutline" size="xl">
+                Admin Dashboard
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </Link>
           </div>
 
           <p className="text-sm text-muted-foreground">

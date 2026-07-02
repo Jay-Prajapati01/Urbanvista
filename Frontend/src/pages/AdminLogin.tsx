@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/lib/auth";
-import { Building2, Lock, Mail, Eye, EyeOff, ArrowRight, Shield, Users, BarChart3 } from "lucide-react";
+import { authApi } from "@/lib/api";
+import { Building2, Lock, Mail, Eye, EyeOff, ArrowRight, Shield, Users, BarChart3, House } from "lucide-react";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -13,6 +14,8 @@ export default function AdminLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const { login, loginAsDemo } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isSecretaryLogin = location.pathname.startsWith("/secretary");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +23,19 @@ export default function AdminLogin() {
     const success = await login(email, password);
     setIsLoading(false);
     if (success) {
-      navigate("/admin/dashboard");
+      let role: "admin" | "secretary" | "demo" | undefined;
+      try {
+        const verified = await authApi.verify();
+        role = (verified.user?.role === "secretary" ? "secretary" : "admin") as
+          | "admin"
+          | "secretary"
+          | "demo"
+          | undefined;
+      } catch {
+        role = "admin";
+      }
+
+      navigate(role === "secretary" ? "/secretary/dashboard" : "/admin/dashboard");
     }
   };
 
@@ -87,9 +102,19 @@ export default function AdminLogin() {
             </Link>
           </div>
 
-          <div className="text-center lg:text-left">
-            <h2 className="text-2xl font-bold text-foreground">Welcome back</h2>
-            <p className="text-muted-foreground mt-2">Sign in to your admin account</p>
+          <div className="flex items-center justify-between gap-3">
+            <div className="text-center lg:text-left">
+              <h2 className="text-2xl font-bold text-foreground">Welcome back</h2>
+              <p className="text-muted-foreground mt-2">
+                Sign in to your {isSecretaryLogin ? "secretary" : "admin"} account
+              </p>
+            </div>
+            <Button asChild variant="outline" size="sm" className="shrink-0">
+              <Link to="/">
+                <House className="w-4 h-4" />
+                Home
+              </Link>
+            </Button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -99,8 +124,8 @@ export default function AdminLogin() {
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   id="email"
-                  type="email"
-                  placeholder="admin@urbanvista.com"
+                  type="text"
+                  placeholder={isSecretaryLogin ? "secretary username or email" : "admin@urbanvista.com"}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10 h-12 bg-secondary/50 border-border focus:border-primary"
@@ -147,21 +172,23 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          <Button
-            variant="heroOutline"
-            size="lg"
-            className="w-full"
-            onClick={handleDemoLogin}
-          >
-            <Building2 className="w-5 h-5" />
-            View Demo
-          </Button>
+            {!isSecretaryLogin && (
+              <Button
+                variant="heroOutline"
+                size="lg"
+                className="w-full"
+                onClick={handleDemoLogin}
+              >
+                <Building2 className="w-5 h-5" />
+                View Demo
+              </Button>
+            )}
 
           {/* Demo credentials */}
           <div className="glass-card p-4 space-y-2 text-sm">
             <div className="font-medium text-foreground flex items-center gap-2">
               <Lock className="w-4 h-4 text-steel-blue" />
-              Demo Credentials
+              Default Credentials
             </div>
             <div className="text-muted-foreground space-y-1">
               <div>Email: <code className="text-steel-blue">admin@urbanvista.com</code></div>

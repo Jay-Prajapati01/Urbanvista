@@ -1,4 +1,4 @@
-import { Building2, Car, FileText, Users, Wallet, BarChart3 } from "lucide-react";
+import { Building2, Car, FileText, Users, Wallet, BarChart3, CreditCard, Download, Home } from "lucide-react";
 
 const features = [
   {
@@ -15,6 +15,21 @@ const features = [
     icon: Car,
     title: "Vehicle Management",
     description: "Register and track vehicles by house. Monitor parking allocation and generate vehicle reports.",
+  },
+  {
+    icon: CreditCard,
+    title: "Online Payments",
+    description: "Residents can pay maintenance fees online via Razorpay. Secure UPI, card, and net banking support.",
+  },
+  {
+    icon: Home,
+    title: "Resident Dashboard",
+    description: "Individual resident portal with home info, family details, vehicle records, and payment history at a glance.",
+  },
+  {
+    icon: Download,
+    title: "PDF Receipts",
+    description: "Automatic receipt generation after every payment. Residents can view and download receipts as PDF anytime.",
   },
   {
     icon: Wallet,

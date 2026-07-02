@@ -16,11 +16,14 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex items-center gap-8 text-sm text-muted-foreground">
-            <Link to="/admin/dashboard" className="hover:text-foreground transition-colors">
-              Dashboard
+            <Link to="/login" className="hover:text-foreground transition-colors">
+              Resident Login
+            </Link>
+            <Link to="/signup" className="hover:text-foreground transition-colors">
+              Sign Up
             </Link>
             <Link to="/admin/login" className="hover:text-foreground transition-colors">
-              Login
+              Admin
             </Link>
             <span>Privacy Policy</span>
             <span>Terms of Service</span>

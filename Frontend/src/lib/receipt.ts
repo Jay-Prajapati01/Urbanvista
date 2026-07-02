@@ -20,7 +20,6 @@ function formatCurrency(amount: number): string {
 }
 
 export function generateReceipt(record: MaintenanceRecord, societyName = "UrbanVista Society") {
-  const isPaid = record.status === "Paid";
   const balance = (record.totalAmount ?? 0) - (record.amountPaid ?? 0);
 
   const receiptHtml = `
@@ -485,5 +484,101 @@ export function generateReceipt(record: MaintenanceRecord, societyName = "UrbanV
   if (receiptWindow) {
     receiptWindow.document.write(receiptHtml);
     receiptWindow.document.close();
+  }
+}
+
+export async function downloadReceiptAsPdf(record: MaintenanceRecord, societyName = "UrbanVista Society") {
+  const html2canvas = (await import("html2canvas")).default;
+  const jsPDF = (await import("jspdf")).default;
+
+  const balance = (record.totalAmount ?? 0) - (record.amountPaid ?? 0);
+  const isPaid = record.status === "Paid";
+
+  const container = document.createElement("div");
+  container.style.position = "absolute";
+  container.style.left = "-9999px";
+  container.style.top = "0";
+  container.style.width = "600px";
+  container.innerHTML = `
+    <div style="font-family: Arial, sans-serif; background: #fff; border-radius: 16px; overflow: hidden; width: 600px;">
+      <div style="background: linear-gradient(135deg, #1a365d 0%, #2563eb 100%); color: white; padding: 32px 36px; text-align: center;">
+        <div style="font-size: 22px; font-weight: 700; margin-bottom: 4px;">${societyName}</div>
+        <div style="font-size: 13px; color: rgba(255,255,255,0.8);">Residential Society Management</div>
+        <div style="margin-top: 16px; font-size: 16px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;">MAINTENANCE RECEIPT</div>
+        <div style="display: inline-block; margin-top: 12px; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; background: ${isPaid ? 'rgba(16,185,129,0.2)' : 'rgba(245,158,11,0.2)'}; color: ${isPaid ? '#6ee7b7' : '#fcd34d'};">
+          ${record.status}
+        </div>
+      </div>
+      <div style="padding: 32px 36px;">
+        <table style="width:100%; border-collapse:collapse; margin-bottom:20px;">
+          <tr>
+            <td style="padding:14px 16px; background:#f8fafc; border-radius:10px; border:1px solid #e2e8f0; width:50%;">
+              <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:#64748b; margin-bottom:4px;">House Number</div>
+              <div style="font-size:15px; font-weight:600; color:#1e293b;">${record.houseNumber}</div>
+            </td>
+            <td style="width:20px;"></td>
+            <td style="padding:14px 16px; background:#f8fafc; border-radius:10px; border:1px solid #e2e8f0; width:50%;">
+              <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:#64748b; margin-bottom:4px;">Owner / Resident</div>
+              <div style="font-size:15px; font-weight:600; color:#1e293b;">${record.ownerName || '—'}</div>
+            </td>
+          </tr>
+          <tr><td colspan="3" style="height:20px;"></td></tr>
+          <tr>
+            <td style="padding:14px 16px; background:#f8fafc; border-radius:10px; border:1px solid #e2e8f0;">
+              <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:#64748b; margin-bottom:4px;">Billing Period</div>
+              <div style="font-size:15px; font-weight:600; color:#1e293b;">${formatMonth(record.fromMonth)} — ${formatMonth(record.toMonth)}</div>
+            </td>
+            <td style="width:20px;"></td>
+            <td style="padding:14px 16px; background:#f8fafc; border-radius:10px; border:1px solid #e2e8f0;">
+              <div style="font-size:11px; font-weight:600; text-transform:uppercase; color:#64748b; margin-bottom:4px;">Payment Method</div>
+              <div style="font-size:15px; font-weight:600; color:#1e293b;">${record.paymentMethod}</div>
+            </td>
+          </tr>
+        </table>
+        <hr style="border:none; height:1px; background:#e2e8f0; margin:24px 0;" />
+        <div style="font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#475569; margin-bottom:16px;">Amount Breakdown</div>
+        <table style="width:100%; border-collapse:collapse;">
+          <tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:12px 0; color:#64748b;">Base Maintenance Charge</td><td style="padding:12px 0; text-align:right; font-weight:500; color:#1e293b;">${formatCurrency(record.baseAmount)}</td></tr>
+          ${record.lateFee ? `<tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:12px 0; color:#64748b;">Late Fee</td><td style="padding:12px 0; text-align:right; font-weight:500; color:#1e293b;">${formatCurrency(record.lateFee)}</td></tr>` : ''}
+          ${record.extraCharges ? `<tr style="border-bottom:1px solid #f1f5f9;"><td style="padding:12px 0; color:#64748b;">Extra Charges</td><td style="padding:12px 0; text-align:right; font-weight:500; color:#1e293b;">${formatCurrency(record.extraCharges)}</td></tr>` : ''}
+        </table>
+        <div style="background: linear-gradient(135deg, #1a365d, #2563eb); border-radius:10px; margin-top:16px; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; color:white;">
+          <span style="font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Total Amount</span>
+          <span style="font-size:22px; font-weight:700;">${formatCurrency(record.totalAmount)}</span>
+        </div>
+        <div style="margin-top:20px; padding:16px 20px; background:${balance > 0 ? '#fffbeb' : '#f0fdf4'}; border:1px solid ${balance > 0 ? '#fde68a' : '#bbf7d0'}; border-radius:10px;">
+          <div style="display:flex; justify-content:space-between; padding:6px 0;">
+            <span style="font-size:13px; color:#64748b; font-weight:500;">Amount Paid</span>
+            <span style="font-size:14px; font-weight:600; color:#059669;">${formatCurrency(record.amountPaid)}</span>
+          </div>
+          ${balance > 0 ? `<div style="display:flex; justify-content:space-between; padding:6px 0;">
+            <span style="font-size:13px; color:#64748b; font-weight:500;">Balance Due</span>
+            <span style="font-size:14px; font-weight:600; color:#d97706;">${formatCurrency(balance)}</span>
+          </div>` : ''}
+        </div>
+      </div>
+      <div style="padding:24px 36px; background:#f8fafc; border-top:1px solid #e2e8f0; text-align:center;">
+        <div style="font-size:12px; color:#94a3b8; line-height:1.6;">This is a computer-generated receipt and does not require a signature.</div>
+        <div style="font-size:11px; color:#cbd5e1; margin-top:8px; font-family:monospace;">Receipt ID: ${record.id.substring(0, 8).toUpperCase()} | Generated on ${new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}</div>
+      </div>
+    </div>`;
+
+  document.body.appendChild(container);
+
+  try {
+    const canvas = await html2canvas(container.firstElementChild as HTMLElement, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const imgWidth = 190;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+    pdf.save(`Receipt_${record.houseNumber}_${record.id.substring(0, 8).toUpperCase()}.pdf`);
+  } finally {
+    document.body.removeChild(container);
   }
 }

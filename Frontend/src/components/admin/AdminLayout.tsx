@@ -1,8 +1,11 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { useTheme } from "@/lib/theme";
+import { activityApi } from "@/lib/activityApi";
+import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Building2,
   LayoutDashboard,
@@ -20,8 +23,11 @@ import {
   Sun,
   Monitor,
   AlertCircle,
+  Shield,
+  Bell,
+  Activity,
+  LogIn,
 } from "lucide-react";
-import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,15 +35,30 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const navItems = [
-  { path: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { path: "/admin/houses", label: "Houses", icon: Home },
-  { path: "/admin/members", label: "Members", icon: Users },
-  { path: "/admin/vehicles", label: "Vehicles", icon: Car },
-  { path: "/admin/maintenance", label: "Maintenance", icon: Wrench },
-  { path: "/admin/expenditures", label: "Expenditures", icon: Receipt },
-  { path: "/admin/reports", label: "Reports", icon: BarChart3 },
-  { path: "/admin/settings", label: "Settings", icon: Settings },
+const adminNavItems = [
+  { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { key: "activity-logs", label: "Activity Logs", icon: Activity },
+  { key: "login-history", label: "Login History", icon: LogIn },
+  { key: "houses", label: "Houses", icon: Home },
+  { key: "members", label: "Members", icon: Users },
+  { key: "vehicles", label: "Vehicles", icon: Car },
+  { key: "maintenance", label: "Maintenance", icon: Wrench },
+  { key: "expenditures", label: "Expenditures", icon: Receipt },
+  { key: "secretaries", label: "Secretaries", icon: Shield },
+  { key: "notifications", label: "Notifications", icon: Bell, badge: true },
+  { key: "settings", label: "Settings", icon: Settings },
+];
+
+const secretaryNavItems = [
+  { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { key: "houses", label: "Houses", icon: Home },
+  { key: "members", label: "Members", icon: Users },
+  { key: "vehicles", label: "Vehicles", icon: Car },
+  { key: "maintenance", label: "Maintenance", icon: Wrench },
+  { key: "expenditures", label: "Expenditures", icon: Receipt },
+  { key: "residents", label: "Residents", icon: Users },
+  { key: "reports", label: "Reports", icon: BarChart3 },
+  { key: "settings", label: "Settings", icon: Settings },
 ];
 
 interface AdminLayoutProps {
@@ -50,12 +71,22 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const basePath = user?.role === "secretary" ? "/secretary" : "/admin";
+
+  const { data: notificationsData } = useQuery({
+    queryKey: ["notifications-badge"],
+    queryFn: () => activityApi.getNotifications({ page: 1, limit: 1 }),
+    enabled: isAuthenticated && !isDemo && user?.role === "admin",
+    refetchInterval: 30000,
+  });
+
+  const unreadCount = notificationsData?.unreadCount || 0;
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      navigate("/admin/login");
+      navigate(basePath === "/secretary" ? "/secretary/login" : "/admin/login");
     }
-  }, [isAuthenticated, isLoading, navigate]);
+  }, [isAuthenticated, isLoading, navigate, basePath]);
 
   if (isLoading) {
     return (
@@ -77,6 +108,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     navigate("/");
   };
 
+  const navItems = user?.role === "admin" ? adminNavItems : secretaryNavItems;
+
   return (
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
@@ -88,11 +121,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="h-16 flex items-center justify-between px-4 border-b border-border">
-            <Link to="/admin/dashboard" className="flex items-center gap-3">
+            <Link to={`${basePath}/dashboard`} className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-lg bg-steel-blue/10 flex items-center justify-center">
                 <Building2 className="w-5 h-5 text-steel-blue" />
               </div>
-              <span className="font-semibold text-foreground">UrbanVista</span>
+              <div>
+                <div className="font-semibold text-foreground">UrbanVista</div>
+                <div className="text-[11px] text-muted-foreground leading-tight">
+                  {user?.role === "secretary" ? "Secretary Workspace" : "Admin Workspace"}
+                </div>
+              </div>
             </Link>
             <Button
               variant="ghost"
@@ -120,16 +158,26 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
             {navItems.map((item) => {
-              const isActive = location.pathname === item.path;
+              const path = `${basePath}/${item.key}`;
+              const isActive = location.pathname === path;
+              const showBadge = item.badge && unreadCount > 0;
               return (
                 <Link
-                  key={item.path}
-                  to={item.path}
+                  key={item.key}
+                  to={path}
                   onClick={() => setSidebarOpen(false)}
                   className={`nav-link ${isActive ? "nav-link-active" : ""}`}
                 >
                   <item.icon className="w-5 h-5" />
                   <span>{item.label}</span>
+                  {showBadge && (
+                    <Badge
+                      variant="destructive"
+                      className="ml-auto min-w-[20px] h-5 px-1.5 flex items-center justify-center text-xs"
+                    >
+                      {unreadCount > 99 ? "99+" : unreadCount}
+                    </Badge>
+                  )}
                 </Link>
               );
             })}
@@ -150,6 +198,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <div className="text-xs text-muted-foreground truncate">
                   {user?.email}
                 </div>
+                {user?.role === "secretary" && (
+                  <div className="text-[11px] text-steel-blue mt-1">Scoped Access</div>
+                )}
               </div>
             </div>
             <Button

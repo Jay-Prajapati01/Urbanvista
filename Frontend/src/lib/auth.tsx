@@ -6,7 +6,9 @@ type User = {
   id: string;
   name: string;
   email: string;
-  role: "admin" | "demo";
+  username?: string | null;
+  mustResetPassword?: boolean;
+  role: "admin" | "secretary" | "demo";
 };
 
 type AuthContextType = {
@@ -21,7 +23,6 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Demo credentials (read-only mode)
 const DEMO_USER: User = {
   id: "demo-001",
   name: "Demo Admin",
@@ -33,63 +34,73 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    // Check for existing session
-    const storedUser = localStorage.getItem("urbanvista-user");
-    const token = localStorage.getItem("urbanvista-token");
+  const clearStorage = () => {
+    localStorage.removeItem("urbanvista-user");
+    localStorage.removeItem("urbanvista-token");
+    localStorage.removeItem("urbanvista-refresh-token");
+  };
 
-    if (storedUser) {
-      const parsed = JSON.parse(storedUser);
-      // For demo users, just restore without verification
-      if (parsed.role === "demo") {
+  useEffect(() => {
+    const initAuth = async () => {
+      const storedUser = localStorage.getItem("urbanvista-user");
+      const pathname = window.location.pathname;
+      const isStaffPath = pathname.startsWith("/admin") || pathname.startsWith("/secretary");
+
+      const parsed = storedUser ? JSON.parse(storedUser) : null;
+      if (parsed?.role === "demo") {
         setUser(parsed);
         setIsLoading(false);
         return;
       }
-      // For real admin, verify the token is still valid
-      if (token) {
-        authApi
-          .verify()
-          .then(({ valid, user: verifiedUser }) => {
-            if (valid && verifiedUser) {
-              setUser(verifiedUser as User);
-            } else {
-              localStorage.removeItem("urbanvista-user");
-              localStorage.removeItem("urbanvista-token");
-            }
-          })
-          .catch(() => {
-            localStorage.removeItem("urbanvista-user");
-            localStorage.removeItem("urbanvista-token");
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      } else {
-        setUser(parsed);
+
+      if (!isStaffPath && !storedUser && !localStorage.getItem("urbanvista-token")) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const { valid, user: verifiedUser } = await authApi.verify();
+        if (valid && verifiedUser) {
+          const principal: User = {
+            id: verifiedUser.id,
+            name: verifiedUser.name,
+            email: verifiedUser.email,
+            username: verifiedUser.username || null,
+            mustResetPassword: Boolean(verifiedUser.mustResetPassword),
+            role: verifiedUser.role === "secretary" ? "secretary" : "admin",
+          };
+          setUser(principal);
+          localStorage.setItem("urbanvista-user", JSON.stringify(principal));
+        } else {
+          clearStorage();
+        }
+      } catch {
+        clearStorage();
+      } finally {
         setIsLoading(false);
       }
-    } else {
-      setIsLoading(false);
-    }
+    };
+
+    initAuth();
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const { token, user: loggedInUser } = await authApi.login(email, password);
+      const { user: loggedInUser } = await authApi.login(email, password);
 
       const appUser: User = {
         id: loggedInUser.id,
         name: loggedInUser.name,
         email: loggedInUser.email,
-        role: "admin",
+        username: loggedInUser.username || null,
+        mustResetPassword: Boolean(loggedInUser.mustResetPassword),
+        role: loggedInUser.role === "secretary" ? "secretary" : "admin",
       };
 
-      localStorage.setItem("urbanvista-token", token);
       localStorage.setItem("urbanvista-user", JSON.stringify(appUser));
       setUser(appUser);
 
-      toast.success("Welcome back, Admin!");
+      toast.success(`Welcome back, ${appUser.role === "secretary" ? "Secretary" : "Admin"}!`);
       return true;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Login failed";
@@ -102,15 +113,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(DEMO_USER);
     localStorage.setItem("urbanvista-user", JSON.stringify(DEMO_USER));
     localStorage.removeItem("urbanvista-token");
+    localStorage.removeItem("urbanvista-refresh-token");
     toast.info("Demo mode – changes are disabled", {
       description: "You're viewing the app in read-only mode",
     });
   };
 
   const logout = () => {
+    authApi.logout().catch(() => {});
+
     setUser(null);
-    localStorage.removeItem("urbanvista-user");
-    localStorage.removeItem("urbanvista-token");
+    clearStorage();
     toast.success("Logged out successfully");
   };
 

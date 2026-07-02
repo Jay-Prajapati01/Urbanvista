@@ -1,0 +1,1262 @@
+{
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\server.js": {
+    "mtime": 1775810284.3067842,
+    "hash": "25b4dd0e5e008398f46597dd3653618d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\database\\fix_user_auth_tables.sql": {
+    "mtime": 1773691421.7447863,
+    "hash": "80206375e826aee4c7b81a7752af9c0f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\database\\phase1_rbac.sql": {
+    "mtime": 1775762802.5089922,
+    "hash": "1b1fa963e478f0287e399f443759ad31"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\database\\phase2_activity_tracking.sql": {
+    "mtime": 1775768373.2667701,
+    "hash": "3d9c4d29fdabb549fc67a339b1b52489"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\database\\phase3_maintenance_due_receipts.sql": {
+    "mtime": 1775807415.973617,
+    "hash": "1fa7df7813afc109da1048b220cd4702"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\database\\phase4_expenditures_house_scope.sql": {
+    "mtime": 1775812056.5058997,
+    "hash": "1990e7b02ca1e486ba67af1e4c9836d7"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\database\\phase5_live_schema_alignment_patch.sql": {
+    "mtime": 1775812056.5258987,
+    "hash": "18633be857f12e991eb2dd3f618f52f7"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\database\\schema.sql": {
+    "mtime": 1775812056.5058997,
+    "hash": "f93397c5c4a321598284c0de4e3f2e14"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\scripts\\full-workflow-audit.js": {
+    "mtime": 1775812056.4992535,
+    "hash": "f2f981f1187451c6b162472a22387d84"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\scripts\\httpSession.js": {
+    "mtime": 1775763206.602872,
+    "hash": "42722c0e3556f4419d04a2e969b19ae6"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\scripts\\verify-rbac-migration.js": {
+    "mtime": 1775766269.4418833,
+    "hash": "c8c011c104b70871e613bce843894119"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\scripts\\verify-schema-alignment.js": {
+    "mtime": 1775812056.5058997,
+    "hash": "17d4965a22970beb3c8fb7f77648edd0"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\config\\razorpay.js": {
+    "mtime": 1775809563.2067637,
+    "hash": "ad97d5424724474197b1b6ec60f6d12f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\config\\supabase.js": {
+    "mtime": 1775674657.5397894,
+    "hash": "8e072501a8e6b447183751efa6ecf37f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\middleware\\activityTracker.js": {
+    "mtime": 1775766269.4418833,
+    "hash": "4570134f7c6b4f92eeec94c8f19c402a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\middleware\\auth.js": {
+    "mtime": 1775679924.2879655,
+    "hash": "432ef9597c576a123e1ce765d61aa805"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\middleware\\csrf.js": {
+    "mtime": 1775680555.3251457,
+    "hash": "b0fc9ca3392a1e4c80be9d6721a48fcd"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\middleware\\staffAuth.js": {
+    "mtime": 1775679924.2839663,
+    "hash": "7ea8cfae9ac55f13d3bcb633f3200c9c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\middleware\\userAuth.js": {
+    "mtime": 1775679924.2879655,
+    "hash": "042fb17a785937a43f1c5ac54c166558"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\activity.js": {
+    "mtime": 1775766269.4725657,
+    "hash": "5f9c77ea873c48457cdb3c741a4e52a0"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\auth.js": {
+    "mtime": 1775768373.2596958,
+    "hash": "0b52f39331deacb888d7a64d25c5811e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\dashboard.js": {
+    "mtime": 1775807415.970618,
+    "hash": "f706d0ad6d8ccfd1f004e4f03cbe6669"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\expenditures.js": {
+    "mtime": 1775812056.4992535,
+    "hash": "31c8959baeb5fbd6442dc2aaff28ca5a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\houses.js": {
+    "mtime": 1775762802.5055623,
+    "hash": "ee0682871f715ebaa2d12f125b77ec11"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\maintenance.js": {
+    "mtime": 1775808565.8553162,
+    "hash": "367200a4cb509e8e86ca1398ae680729"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\members.js": {
+    "mtime": 1773937335.1622431,
+    "hash": "14ea3183b5d31738181dca0a40e1d2d9"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\payments.js": {
+    "mtime": 1775807415.965618,
+    "hash": "2c6e3ad1e98d72cf0d49d989ae9c9ccc"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\receipts.js": {
+    "mtime": 1775807415.973617,
+    "hash": "ed0d28deca277645f05d2afacdda5494"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\reports.js": {
+    "mtime": 1775807415.970618,
+    "hash": "aea0e98a024cb00a9b92648c2192f20a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\settlements.js": {
+    "mtime": 1775762802.5164976,
+    "hash": "eb8517992253c3a54b98eb767df023ef"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\userAuth.js": {
+    "mtime": 1775810284.3067842,
+    "hash": "06b85838639f8cdd4a46295cf8f8e0b1"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\userDashboard.js": {
+    "mtime": 1775807415.973617,
+    "hash": "b7656f658a72b5c62ea3d9f1b90e3507"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\userMaintenance.js": {
+    "mtime": 1775807415.973617,
+    "hash": "47d8fe96e22d285a9c75654b090982d2"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\userPayments.js": {
+    "mtime": 1775807415.965618,
+    "hash": "29beb7eb7bff66cc4ff5404d4b18f0c4"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\routes\\vehicles.js": {
+    "mtime": 1773937335.1622431,
+    "hash": "eb65285e0a5b3f3f9f75ab7eaab5369c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\services\\adminAnalyticsService.js": {
+    "mtime": 1775766269.4418833,
+    "hash": "156a37f5820b3c1c73e3173e9f1b0b89"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\services\\maintenanceBillingService.js": {
+    "mtime": 1775808565.8417387,
+    "hash": "fba31076f3bdd56303fa9eb42d3bac9c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\services\\paymentService.js": {
+    "mtime": 1775809563.2067637,
+    "hash": "3cfcfa6bc60a7495f3db97d3e448785a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\services\\receiptService.js": {
+    "mtime": 1775807415.9726176,
+    "hash": "75a78470505df9aed3f73a856681562a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\utils\\accessScope.js": {
+    "mtime": 1775762802.507992,
+    "hash": "7189616e3debdaeb6df92375c84ddc09"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\utils\\activityLogger.js": {
+    "mtime": 1775768373.2586954,
+    "hash": "1d02e41eba4d05ae79b08167a3218a79"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\utils\\audit.js": {
+    "mtime": 1773937335.0615914,
+    "hash": "b9f822ddcddc714b42b76e22e6707286"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\utils\\authCookies.js": {
+    "mtime": 1775680555.326255,
+    "hash": "035bea8579992a161e34a1265acf248c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\utils\\loginHistoryBootstrap.js": {
+    "mtime": 1775768373.2710588,
+    "hash": "818658f452567bb046fd7cb6fb0cc4c2"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\utils\\permissions.js": {
+    "mtime": 1775677796.535267,
+    "hash": "4c8ecb60bd37f79f5ef9e2160c2a00d9"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\src\\utils\\transform.js": {
+    "mtime": 1770652589.5261319,
+    "hash": "1bc7dfde4f8c9fdad30b51344387c077"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Backend\\tests\\api-scope-security.integration.test.js": {
+    "mtime": 1775763206.6067064,
+    "hash": "954554960e03b552897763c6b87b697a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\eslint.config.js": {
+    "mtime": 1775675597.4298036,
+    "hash": "6d5e2ebdfab58515c3033daea0e02a07"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\postcss.config.js": {
+    "mtime": 1770227991.3151295,
+    "hash": "33fad9c02cb0ec6d6030369ef6347d57"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\tailwind.config.ts": {
+    "mtime": 1775675597.4298036,
+    "hash": "5db6fda4fb333ae40f581a58bd45669b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\vite.config.ts": {
+    "mtime": 1770227991.346129,
+    "hash": "0082f7352410bc86f739562f6c95adb1"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\App.tsx": {
+    "mtime": 1775682297.5903988,
+    "hash": "01e898a985975086c4a5bd53b53d7591"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\main.tsx": {
+    "mtime": 1770227991.3391306,
+    "hash": "3ad492668e71c9fb3069381cb93760ed"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\vite-env.d.ts": {
+    "mtime": 1770227991.344128,
+    "hash": "8f68c27c3fc38817b2726b20e2d4f1ee"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\NavLink.tsx": {
+    "mtime": 1770227991.3181298,
+    "hash": "889a81fd2eb948eb406c9ccabe175918"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\admin\\AdminLayout.tsx": {
+    "mtime": 1775682297.5903988,
+    "hash": "aa2e6f657a13c26cf972783278596b0c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\landing\\CTA.tsx": {
+    "mtime": 1773430528.414402,
+    "hash": "880dd4b55ccda165e28f9873c1566c1e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\landing\\Features.tsx": {
+    "mtime": 1773431198.5104542,
+    "hash": "1bd80ee8c93f88bc2a3cd02bcc77989d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\landing\\Footer.tsx": {
+    "mtime": 1773431198.5104542,
+    "hash": "66814bdaac351c7806695719da478e4f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\landing\\Header.tsx": {
+    "mtime": 1774000700.174378,
+    "hash": "98eba5fe7bde643549b84addfe53ccc5"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\landing\\Hero.tsx": {
+    "mtime": 1773431198.5104542,
+    "hash": "ce885f2441552d6ed133f6b85e651f34"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\accordion.tsx": {
+    "mtime": 1770227991.321128,
+    "hash": "ff8f54b79a7a2bc4fed8c092dd7a1f4b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\alert-dialog.tsx": {
+    "mtime": 1770227991.321128,
+    "hash": "9e4e4984ede953adcc023d60c017a968"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\alert.tsx": {
+    "mtime": 1770227991.321128,
+    "hash": "eba34d3096d7c23bcdf5dfb1e725ecff"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\aspect-ratio.tsx": {
+    "mtime": 1770227991.3221283,
+    "hash": "14c12661aad8c80328c86a18b506c088"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\avatar.tsx": {
+    "mtime": 1770227991.3221283,
+    "hash": "7b447f617f7d654c70050259fbf6dbc0"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\badge.tsx": {
+    "mtime": 1770227991.3221283,
+    "hash": "09261d891c581ebf021af2989fe75d60"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\breadcrumb.tsx": {
+    "mtime": 1770227991.3221283,
+    "hash": "c277fb2bb0886444a6c8a00296ad924e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\button.tsx": {
+    "mtime": 1770227991.3231287,
+    "hash": "99410ca92c0aea0fb76ec11a22897a37"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\calendar.tsx": {
+    "mtime": 1770227991.3241277,
+    "hash": "1a2e76319e667991b06dc99e74b9b631"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\card.tsx": {
+    "mtime": 1770227991.3241277,
+    "hash": "0e2d94c650cf4fae76b4c5e0f14dd858"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\carousel.tsx": {
+    "mtime": 1770227991.3241277,
+    "hash": "7d3e5a6ed21d4690d498e8a60b52868a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\chart.tsx": {
+    "mtime": 1770227991.325128,
+    "hash": "4360d46060e32c8aafbc140a482a03fa"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\checkbox.tsx": {
+    "mtime": 1770227991.325128,
+    "hash": "76ca6b8de39bdac0ff7620b301077963"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\collapsible.tsx": {
+    "mtime": 1770227991.326128,
+    "hash": "72fafa9d8b58f83ec9b7c8f141bfdd42"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\command.tsx": {
+    "mtime": 1775675597.4158044,
+    "hash": "26c0fe8e43d8336094c2f77c35d86009"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\context-menu.tsx": {
+    "mtime": 1770227991.326128,
+    "hash": "bf02a92d910af3af76b1e417a76cbd6a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\dialog.tsx": {
+    "mtime": 1770227991.326128,
+    "hash": "8c4a577dcf79d0ba30c2749f909fa932"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\drawer.tsx": {
+    "mtime": 1770227991.3271277,
+    "hash": "a73521d8fbccde731eae7f2f81f5875b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\dropdown-menu.tsx": {
+    "mtime": 1770227991.3271277,
+    "hash": "deab6e248bcccb2e52ad13736bf5952e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\form.tsx": {
+    "mtime": 1770227991.3281286,
+    "hash": "4d27bc8211e0505103bbd930275570c6"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\hover-card.tsx": {
+    "mtime": 1770227991.3281286,
+    "hash": "a7927cc49ef796b0c725ecd0869c9f95"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\input-otp.tsx": {
+    "mtime": 1770227991.3281286,
+    "hash": "7217a7c6bceca8030298e2252204ae40"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\input.tsx": {
+    "mtime": 1770227991.329128,
+    "hash": "c9e808ff72f69a97513b516a31d5705a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\label.tsx": {
+    "mtime": 1770227991.329128,
+    "hash": "a8c075269b5971c2ab072603b5166cc2"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\menubar.tsx": {
+    "mtime": 1770227991.329128,
+    "hash": "8d6dd42e35e9410e97a725c64c02f0a6"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\navigation-menu.tsx": {
+    "mtime": 1770227991.3301275,
+    "hash": "2d91ffeee8627f37b4733949b3373a23"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\pagination.tsx": {
+    "mtime": 1770227991.3301275,
+    "hash": "4d09c500f83dd4b754b74d03b79527ba"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\popover.tsx": {
+    "mtime": 1770227991.3311284,
+    "hash": "63380a8f575f8a1a5277caeb4971919f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\progress.tsx": {
+    "mtime": 1770227991.3311284,
+    "hash": "b0d4b1791f1da120f5eed107f235edce"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\radio-group.tsx": {
+    "mtime": 1770227991.3311284,
+    "hash": "6c2a4c39fb3f889fe94b854b7198b5ed"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\resizable.tsx": {
+    "mtime": 1770227991.3311284,
+    "hash": "ed49053e380e461e2ca75f7a3fe67236"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\scroll-area.tsx": {
+    "mtime": 1770227991.3321278,
+    "hash": "f86e3f716ed7c692309c1a48d85ce2c9"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\select.tsx": {
+    "mtime": 1770227991.3321278,
+    "hash": "7a89fad24599af514ca0e28a9f5c4370"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\separator.tsx": {
+    "mtime": 1770227991.3321278,
+    "hash": "1810b24a008c00cd43c0b5ad9f3e4c6b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\sheet.tsx": {
+    "mtime": 1770227991.3321278,
+    "hash": "d01d85069ebcb54849277fce060ebfea"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\sidebar.tsx": {
+    "mtime": 1770227991.333128,
+    "hash": "47158040377f0ab1d4610e976529ef9c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\skeleton.tsx": {
+    "mtime": 1770227991.333128,
+    "hash": "6433d7c535e132083b2c1bcb57373fff"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\slider.tsx": {
+    "mtime": 1770227991.333128,
+    "hash": "977286428ad957ed73e428525450f9cb"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\sonner.tsx": {
+    "mtime": 1770227991.333128,
+    "hash": "f375774f847d020348cd21d524d28c75"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\switch.tsx": {
+    "mtime": 1770227991.3341277,
+    "hash": "57fa755b8dcfe75538bc523ac3e0bb0e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\table.tsx": {
+    "mtime": 1770227991.3341277,
+    "hash": "d73905fa73678181cb9f8baa91b3f222"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\tabs.tsx": {
+    "mtime": 1770227991.3341277,
+    "hash": "33c494eaa3811114e89a89fbbb0a1a02"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\textarea.tsx": {
+    "mtime": 1775675597.4288037,
+    "hash": "39d17367f07d7657735d694052aebd52"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\toast.tsx": {
+    "mtime": 1770227991.3351276,
+    "hash": "0e2ba363f7d8b176dea467284711fea5"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\toaster.tsx": {
+    "mtime": 1770227991.3351276,
+    "hash": "0f5d0fdbcc2d4611e59994af4393e27e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\toggle-group.tsx": {
+    "mtime": 1770227991.3351276,
+    "hash": "fc5bff5bf4bb6714e6eaf85dcdeb65b9"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\toggle.tsx": {
+    "mtime": 1770227991.336128,
+    "hash": "2342cfa40b5b31148997f87d1642359e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\tooltip.tsx": {
+    "mtime": 1770227991.336128,
+    "hash": "c050f1e97cf8e200ecf88681073c90cb"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\ui\\use-toast.ts": {
+    "mtime": 1770227991.336128,
+    "hash": "5bff9ea3904b15a9e1908b128c88e75f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\components\\user\\UserLayout.tsx": {
+    "mtime": 1773429811.3164833,
+    "hash": "9ecf7c2d3b9f257f0c58f3d42232415c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\hooks\\use-mobile.tsx": {
+    "mtime": 1770227991.336128,
+    "hash": "1bb3ebac7752b497a78d34e341975bbd"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\hooks\\use-toast.ts": {
+    "mtime": 1770227991.337129,
+    "hash": "895be3e18021c7c5cd4fac68ea522dd4"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\activityApi.ts": {
+    "mtime": 1775767714.2350106,
+    "hash": "b9e173e8e3a46e016505f901200ee4a0"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\api.ts": {
+    "mtime": 1775752908.455411,
+    "hash": "79ac91bef65222c1231f62e1b81a48a8"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\auth.tsx": {
+    "mtime": 1775810284.3107848,
+    "hash": "6e59cee88c5955808188f4296cfed08c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\csv.ts": {
+    "mtime": 1771102491.1620336,
+    "hash": "23de8938cb04741c2427788a976416f4"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\data.ts": {
+    "mtime": 1775807415.9646175,
+    "hash": "7afd47085f6c300dd402cfe448cdf312"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\razorpay.ts": {
+    "mtime": 1775675597.4318042,
+    "hash": "0302507442d7e1f970774376fd96b4a7"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\receipt.ts": {
+    "mtime": 1773431112.564546,
+    "hash": "8a5329198820f69915879efacd778976"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\theme.tsx": {
+    "mtime": 1770227991.338129,
+    "hash": "87bd47d7f34df67d63cdcc80d2928245"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\userApi.ts": {
+    "mtime": 1775810284.3067842,
+    "hash": "6ac5ad8e7e5dce589b08181f70d58e50"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\userAuth.tsx": {
+    "mtime": 1775810284.3067842,
+    "hash": "4dca00c897310006f3194cf3a68f56f7"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\lib\\utils.ts": {
+    "mtime": 1770227991.338129,
+    "hash": "e3f848f1b39f863e6164cf58b5a8e752"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\AdminLogin.tsx": {
+    "mtime": 1775679924.2839663,
+    "hash": "04cad7f993426450bed024c84c1bc328"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\Index.tsx": {
+    "mtime": 1770227991.3401282,
+    "hash": "f9c5c7a994a2a7d19c47b92b85b381a5"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\NotFound.tsx": {
+    "mtime": 1770623297.5731587,
+    "hash": "c7040120c6d9e936cb33ffaef7db1051"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\UserLogin.tsx": {
+    "mtime": 1775676692.0620897,
+    "hash": "54a5c0e91f55ba865d17ed34d1ecbd5a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\UserSignup.tsx": {
+    "mtime": 1773690721.9218261,
+    "hash": "f5fe23a4804bee7e9304e8ee54b7cfea"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\ActivityLogs.tsx": {
+    "mtime": 1775675597.4298036,
+    "hash": "5a6abc3ece22e033506ff8027e8dc096"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Dashboard.tsx": {
+    "mtime": 1775675597.4328034,
+    "hash": "7e44822e9a56fc09c3694575ad05401b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Expenditures.tsx": {
+    "mtime": 1775675597.4338028,
+    "hash": "f98e4473853d25d7cb68c16fc4ac5139"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Houses.tsx": {
+    "mtime": 1774177672.1952446,
+    "hash": "b84edd1f05bfd85d8ceffe9f9009cced"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\LoginHistory.tsx": {
+    "mtime": 1775767714.2350106,
+    "hash": "0080e7a743b6222cbea1bec945857258"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Maintenance.tsx": {
+    "mtime": 1775675597.4348028,
+    "hash": "caa0dc7515e0bcbf29739eebc932304c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Members.tsx": {
+    "mtime": 1775675597.4338028,
+    "hash": "42bd7eae132d373c9fc3f84e78295766"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Notifications.tsx": {
+    "mtime": 1775675597.4328034,
+    "hash": "01cd68e79a28436b04ee853c5e70afaa"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Reports.tsx": {
+    "mtime": 1775759194.373767,
+    "hash": "6fb5ca8df6307078ebec2552bd949e98"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Settings.tsx": {
+    "mtime": 1770227991.3431282,
+    "hash": "7e5ddc38ad9a913b8529983220394910"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\admin\\Vehicles.tsx": {
+    "mtime": 1775675597.4348028,
+    "hash": "2cf4e632dd4d8d44aac4969f7a0bdbf5"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\user\\UserDashboard.tsx": {
+    "mtime": 1774002158.649197,
+    "hash": "9ff3d0216fafbb3e2f6e03b1a609f097"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\user\\UserPayments.tsx": {
+    "mtime": 1775809563.214234,
+    "hash": "9b2fb6498541952f3a9baa36975b9fa7"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\src\\pages\\user\\UserReceipts.tsx": {
+    "mtime": 1775807415.973617,
+    "hash": "b08ad8edd31656ad35c54e3c26064cbf"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\analyze.py": {
+    "mtime": 1777916185.0769575,
+    "hash": "9aca90023e723b13c37ced82155bb03c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\benchmark.py": {
+    "mtime": 1777916185.0783782,
+    "hash": "0742c9e521cedc1cbd6e213b01c93d4a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\build.py": {
+    "mtime": 1777916185.0783782,
+    "hash": "c8b03faaa42d5f791c204157234305fa"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\cache.py": {
+    "mtime": 1777916185.0796406,
+    "hash": "32a8513b63dc676a9f7938f3e25d9fe8"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\cluster.py": {
+    "mtime": 1777916185.0796406,
+    "hash": "0ba0c84b570abbfc1581ba5336b24a3f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\dedup.py": {
+    "mtime": 1777916185.0796406,
+    "hash": "ef13a679f2f5ff0ed5e3f79c9e02f9fe"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\detect.py": {
+    "mtime": 1777916185.081121,
+    "hash": "3451aa26958ccc0251e5c5180a13f84e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\export.py": {
+    "mtime": 1777916185.0821276,
+    "hash": "61d89a6c0b03080ad61134afc3b4168f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\extract.py": {
+    "mtime": 1777916185.0832267,
+    "hash": "471462537d2960b2a82a82eb368b6260"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\hooks.py": {
+    "mtime": 1777916185.0832267,
+    "hash": "fe334d396f203defd4f3bec792329bff"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\ingest.py": {
+    "mtime": 1777916185.0842457,
+    "hash": "61aef9a00602889c389733b83d5a3626"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\llm.py": {
+    "mtime": 1777916185.0852637,
+    "hash": "50f11f1cb7e38e6d82e9de4c919c7e8f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\manifest.py": {
+    "mtime": 1777916185.0862663,
+    "hash": "b6fb195b7900f4ed7bec86a8b0d43a18"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\report.py": {
+    "mtime": 1777916185.0862663,
+    "hash": "82a03153b8a81bf229b865cee202cacc"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\security.py": {
+    "mtime": 1777916185.0862663,
+    "hash": "95cf53064bc6901241290e720db3c7f0"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\serve.py": {
+    "mtime": 1777916185.087581,
+    "hash": "93b8347b2f8930fa1a51ff7326ae1f8c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\transcribe.py": {
+    "mtime": 1777916185.095542,
+    "hash": "806ed4df8ffa36a40cc887a8b07e0c36"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\tree_html.py": {
+    "mtime": 1777916185.0967891,
+    "hash": "7b89a14fd14e3387bdcd52b6a15b0038"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\validate.py": {
+    "mtime": 1777916185.0967891,
+    "hash": "58b66d31350c480f602c1cb09648245d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\watch.py": {
+    "mtime": 1777916185.0977957,
+    "hash": "145e74cb608fb2bcbeee0da3cedcd360"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\wiki.py": {
+    "mtime": 1777916185.0977957,
+    "hash": "1dfbcc94a4e3fa3d89e086ff69644189"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\__init__.py": {
+    "mtime": 1777916185.0759456,
+    "hash": "7d6b16eb66fd4852a50d7474a1815579"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\__main__.py": {
+    "mtime": 1777916185.0769575,
+    "hash": "0f5b7b1d1beeff316176bcdc58b965ba"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify-venv\\Scripts\\Activate.ps1": {
+    "mtime": 1777916337.2684627,
+    "hash": "9fb7261d806bafffd5afd29a92df8580"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\bench_extract.py": {
+    "mtime": 1777916185.100484,
+    "hash": "1a7d90e1abc6d7a780849ca3d5b3223e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_analyze.py": {
+    "mtime": 1777916185.122275,
+    "hash": "5bd4365db0eac9719eecfae8eca781be"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_benchmark.py": {
+    "mtime": 1777916185.122957,
+    "hash": "a69a555b607b9127019ba985d4a68693"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_build.py": {
+    "mtime": 1777916185.122957,
+    "hash": "962bbc3c1a3cd1d20ee90f3fdba62719"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_cache.py": {
+    "mtime": 1777916185.1239643,
+    "hash": "2233754d22d5470b8a4b9dd0438b9e5a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_chunking.py": {
+    "mtime": 1777916185.1239643,
+    "hash": "29049c19d1d5fa98e8205d73481585c6"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_claude_md.py": {
+    "mtime": 1777916185.1249652,
+    "hash": "b8fcdab59fac826310c473a1b2f861c1"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_cli_export.py": {
+    "mtime": 1777916185.1249652,
+    "hash": "870da07562037c6d25fa81685e1d8ba4"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_cluster.py": {
+    "mtime": 1777916185.1259642,
+    "hash": "d5e27be6e3fea2ec8e17bb332f3c82de"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_confidence.py": {
+    "mtime": 1777916185.1259642,
+    "hash": "aeaab1837c65fb85507e96621d1fa9e7"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_dedup.py": {
+    "mtime": 1777916185.1270034,
+    "hash": "bd5ca5a186b81c13f152b99d607c7b69"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_detect.py": {
+    "mtime": 1777916185.1283224,
+    "hash": "f5b32096fb6490d65b62103101a491fb"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_export.py": {
+    "mtime": 1777916185.1283224,
+    "hash": "f59ed5733ae316f309a051811d27130b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_extract.py": {
+    "mtime": 1777916185.1293309,
+    "hash": "8f4c3a6ede02dfc3260cbc532b64765e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_hooks.py": {
+    "mtime": 1777916185.1293309,
+    "hash": "ff9765f0078ecc8c9e8a9284255cc669"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_hypergraph.py": {
+    "mtime": 1777916185.1293309,
+    "hash": "1256cad0b03866e952d14314edd08116"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_incremental.py": {
+    "mtime": 1777916185.1307085,
+    "hash": "1d4989a9713b39532efe44a0111e7c96"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_ingest.py": {
+    "mtime": 1777916185.1307085,
+    "hash": "887c3a601773a11f6a3a119c2aa94067"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_install.py": {
+    "mtime": 1777916185.1321075,
+    "hash": "0828f7fbd7f78ee8baa18754e0c0566d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_languages.py": {
+    "mtime": 1777916185.1321075,
+    "hash": "5225b7a43bee22cb6da41598904e73c5"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_multilang.py": {
+    "mtime": 1777916185.1334777,
+    "hash": "0904da206cab27c3887f748624299d1b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_pipeline.py": {
+    "mtime": 1777916185.133984,
+    "hash": "7fd37b8566d77fd4127081245f605e7d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_query_cli.py": {
+    "mtime": 1777916185.133984,
+    "hash": "bc551c6d83285973c4294dbdbd7b966d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_rationale.py": {
+    "mtime": 1777916185.1351516,
+    "hash": "ce6717bb61b68ce94667f5e15c0c65fe"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_report.py": {
+    "mtime": 1777916185.1351516,
+    "hash": "c30892057a259583592cb99291c7e424"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_security.py": {
+    "mtime": 1777916185.1351516,
+    "hash": "64d4de68f085220c6b6287610f4e5777"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_semantic_similarity.py": {
+    "mtime": 1777916185.136645,
+    "hash": "8b6da033b8d5c2e759b10162e507acd3"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_serve.py": {
+    "mtime": 1777916185.136645,
+    "hash": "f53513131eef0f676f536e184ecc9c40"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_transcribe.py": {
+    "mtime": 1777916185.1376688,
+    "hash": "4f93c061f990991830203ce129291dd0"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_validate.py": {
+    "mtime": 1777916185.1376688,
+    "hash": "40f7c94d777ba791d6711ca7ad6444b1"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_watch.py": {
+    "mtime": 1777916185.139023,
+    "hash": "f5445400c8ccee88ea82fe260089d946"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\test_wiki.py": {
+    "mtime": 1777916185.1398203,
+    "hash": "4bff6934bc13e4d3e52c00e2b7f337e9"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\__init__.py": {
+    "mtime": 1777916185.0990334,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\dynamic_import.ts": {
+    "mtime": 1777916185.1015363,
+    "hash": "3c8854b41bfd47798987f3a982fdb73e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.c": {
+    "mtime": 1777916185.1062264,
+    "hash": "576c1baf1268255813afcee65d95d625"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.cpp": {
+    "mtime": 1777916185.1075976,
+    "hash": "acdb94344746d663c1703d3039e18dd5"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.cs": {
+    "mtime": 1777916185.1075976,
+    "hash": "f55760ad01c6837fd70c3fd3127e52b1"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.ex": {
+    "mtime": 1777916185.1088262,
+    "hash": "d5edac0c474cea2d4ea70646f010e6f8"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.f90": {
+    "mtime": 1777916185.1088262,
+    "hash": "b4ba1e911a8d6e6eb334b28e4fa6d66a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.go": {
+    "mtime": 1777916185.1098611,
+    "hash": "68d764f267d6de33e0072e51b46984fd"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.java": {
+    "mtime": 1777916185.1098611,
+    "hash": "b212881676b2bc38a9bd1ce24e5aecab"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.jl": {
+    "mtime": 1777916185.1108756,
+    "hash": "05bf69b153b47ea73964930b374d12ae"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.kt": {
+    "mtime": 1777916185.1108756,
+    "hash": "e42eb24a6f09aded02c0ae1cd611c476"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.m": {
+    "mtime": 1777916185.1108756,
+    "hash": "c5f2fc141ac551aa2b005874ef90fadb"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.php": {
+    "mtime": 1777916185.1118743,
+    "hash": "fdde93cc61eb3a06c278942c289b61ed"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.ps1": {
+    "mtime": 1777916185.113065,
+    "hash": "f490c05808fe7a2405d59746deff79a8"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.py": {
+    "mtime": 1777916185.113065,
+    "hash": "40d26857f9db668c666b9fd6e89cae0f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.rb": {
+    "mtime": 1777916185.1140745,
+    "hash": "bc67e4db7dcea4169441db46e4c0d1b2"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.rs": {
+    "mtime": 1777916185.1140745,
+    "hash": "df2e677c4a4fb3ff16f25d01e8ece881"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.scala": {
+    "mtime": 1777916185.1154532,
+    "hash": "49e434e95d052ffed3d41a76fc090697"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.sql": {
+    "mtime": 1777916185.115961,
+    "hash": "edcd04dd6a02eb350ac8f8c2bc42c3b1"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.swift": {
+    "mtime": 1777916185.1167068,
+    "hash": "404ffe894f2b37ccc94a518a5aa5b52e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.ts": {
+    "mtime": 1777916185.1167068,
+    "hash": "eca8672c41e03530fc355526545c425e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.zig": {
+    "mtime": 1777916185.1167068,
+    "hash": "2b70ac0b9a1698a539c3a0413369a7ba"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample_calls.py": {
+    "mtime": 1777916185.118035,
+    "hash": "5d61d0c3268393efdff61e775d0299dc"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample_php_config.php": {
+    "mtime": 1777916185.1193523,
+    "hash": "ec8acdd57e6c48be2208c8adb68ec9fb"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample_php_container.php": {
+    "mtime": 1777916185.1210182,
+    "hash": "53f59426adc01aad42273a91b9c5d682"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample_php_listen.php": {
+    "mtime": 1777916185.1210182,
+    "hash": "ee3ff06e804e168123f8426894527195"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample_php_static_prop.php": {
+    "mtime": 1777916185.122275,
+    "hash": "73b53ddaa4e0b43f9868a14f57e41ff7"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tools\\run_graphify.ps1": {
+    "mtime": 1777916556.87318,
+    "hash": "6e24b88cb998447ad4a0d39f413e4716"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\raw\\api.py": {
+    "mtime": 1777916185.1422129,
+    "hash": "94803866dac5d43ca93424600f92d087"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\raw\\parser.py": {
+    "mtime": 1777916185.1442504,
+    "hash": "7e851d6c9387d9dfe3d950da8134e907"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\raw\\processor.py": {
+    "mtime": 1777916185.1442504,
+    "hash": "039460bdd76c82646b92300559d85c8b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\raw\\storage.py": {
+    "mtime": 1777916185.1442504,
+    "hash": "51d7ae51c2822415aa561d6b5c2d21eb"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\raw\\validator.py": {
+    "mtime": 1777916185.145532,
+    "hash": "0a1d1764da88dd249b9234f2fed8a4c8"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\raw\\auth.py": {
+    "mtime": 1777916185.1490717,
+    "hash": "f5e54f028db29f5ade3137e89f11e2e9"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\raw\\client.py": {
+    "mtime": 1777916185.1500678,
+    "hash": "cb2d79a9a63444bd67eac05d9180eee6"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\raw\\exceptions.py": {
+    "mtime": 1777916185.1500678,
+    "hash": "5cbe3454de1c02efd39d6ed626891664"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\raw\\models.py": {
+    "mtime": 1777916185.1513133,
+    "hash": "8bd8f9e42930dfdd3f11236ea96dd30c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\raw\\transport.py": {
+    "mtime": 1777916185.1513133,
+    "hash": "44ad90c1522cf5a4cdcc204a823d4b38"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\raw\\utils.py": {
+    "mtime": 1777916185.1513133,
+    "hash": "396942df3d2ce6762c3d65014d0bbe19"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\mixed-corpus\\raw\\analyze.py": {
+    "mtime": 1777916185.1591005,
+    "hash": "ab646c14d0bd6ade6453e830d366760c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\mixed-corpus\\raw\\build.py": {
+    "mtime": 1777916185.160565,
+    "hash": "5473722d759c4cde9072c2612c1c0a9e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\mixed-corpus\\raw\\cluster.py": {
+    "mtime": 1777916185.160565,
+    "hash": "cb21fb4b090dc4b6067a9235ee1278cb"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\GRAPHIFY_INTEGRATION.md": {
+    "mtime": 1777916556.773146,
+    "hash": "2e39d99ebc4e288d1033a7651ebdd683"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\PHASE_1_IMPLEMENTATION_PLAN.md": {
+    "mtime": 1775678069.1929083,
+    "hash": "e416e7c3d520c64e4e33fa2622790682"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\PHASE_PROMPTS_README.md": {
+    "mtime": 1773998625.75771,
+    "hash": "4a8987e282595da65a96d4bc6c0cb38d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\README.md": {
+    "mtime": 1775808565.8417387,
+    "hash": "73937c48c3511f275233f22dd54e75a6"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Urbanvista_tree.md": {
+    "mtime": 1775849729.17222,
+    "hash": "b6f2b84f60346c4c81e9e1bea58ebd02"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\File_tree_frontend.md": {
+    "mtime": 1770622550.7411528,
+    "hash": "d41c1da0b94f491071cabe9db275a171"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\index.html": {
+    "mtime": 1773934834.343615,
+    "hash": "9be8b9df27cc42770a7e2fe9afc92438"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\README.md": {
+    "mtime": 1770227991.311128,
+    "hash": "003aada7e9b20d16262b48dba4442792"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\public\\robots.txt": {
+    "mtime": 1770227991.3171313,
+    "hash": "a9b03494151fe90e5decd2405400e106"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\AGENTS.md": {
+    "mtime": 1777916185.0480256,
+    "hash": "ab254d0a1c83f1f4813a79ddddbdf284"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\ARCHITECTURE.md": {
+    "mtime": 1777916185.049025,
+    "hash": "6fbda68fd55f3a2db296796187b144e4"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\CHANGELOG.md": {
+    "mtime": 1777916185.049025,
+    "hash": "b1efa3330ed8baf5b8d33a098598b615"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\README.md": {
+    "mtime": 1777916185.050386,
+    "hash": "466310eb0992b3d3c1c4fa3d81a2de8e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\SECURITY.md": {
+    "mtime": 1777916185.050386,
+    "hash": "8cc42d0936db88514164fa88aa35ee37"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\docker-mcp-sqlite.md": {
+    "mtime": 1777916185.0518818,
+    "hash": "f560062bc0fa9015e579083a3c6de462"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\how-it-works.md": {
+    "mtime": 1777916185.0518818,
+    "hash": "e25c27b6a630d3b5d1df2f620178a4e2"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\superpowers\\plans\\2026-05-04-incremental-updates-dedup.md": {
+    "mtime": 1777916185.0553217,
+    "hash": "8f2e4bf83e61604829f985428bb51fe3"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\superpowers\\specs\\2026-05-04-incremental-updates-dedup-design.md": {
+    "mtime": 1777916185.0564702,
+    "hash": "1e5a0a2f249d793a88a2c729679be698"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.ar-SA.md": {
+    "mtime": 1777916185.0576596,
+    "hash": "21dee88d435f035aa8b5ac20365a5d42"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.cs-CZ.md": {
+    "mtime": 1777916185.0591624,
+    "hash": "9a352adc0f566a84536b4264f18cfb1c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.da-DK.md": {
+    "mtime": 1777916185.0605292,
+    "hash": "b12b903f0e5e2f8f347c535042a8426e"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.de-DE.md": {
+    "mtime": 1777916185.0605292,
+    "hash": "496f2233f8409cf7189f30ca6eb4da0f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.el-GR.md": {
+    "mtime": 1777916185.0605292,
+    "hash": "b46bd9efa7b586ad2737bfd0e841fd0c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.es-ES.md": {
+    "mtime": 1777916185.0617356,
+    "hash": "cb7c647e726c762c673de90ac3135b05"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.fi-FI.md": {
+    "mtime": 1777916185.0617356,
+    "hash": "fb07be821d7175af4d315bc951c1efe9"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.fr-FR.md": {
+    "mtime": 1777916185.0631857,
+    "hash": "2d4f43daef30bde2c1fc72725884a184"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.hi-IN.md": {
+    "mtime": 1777916185.0631857,
+    "hash": "feda9705bf766f80162bfff7311c2f29"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.hu-HU.md": {
+    "mtime": 1777916185.0646117,
+    "hash": "55b9cb2c207d244249dd1caebe2e5e45"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.id-ID.md": {
+    "mtime": 1777916185.0656211,
+    "hash": "85e8584403716bad05394a0add760f93"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.it-IT.md": {
+    "mtime": 1777916185.0666203,
+    "hash": "caecd57423f35f7539eaabe4d1319662"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.ja-JP.md": {
+    "mtime": 1777916185.0666203,
+    "hash": "7fa0dce1445a4432b352633e07aedf54"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.ko-KR.md": {
+    "mtime": 1777916185.0676208,
+    "hash": "88a4a59719dee4c9338d5bea39c33c8f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.nl-NL.md": {
+    "mtime": 1777916185.0676208,
+    "hash": "68837abbcb701c80d9d3947bde1cac72"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.no-NO.md": {
+    "mtime": 1777916185.0687594,
+    "hash": "1d428724eb3541ced336b31d841bcbe4"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.pl-PL.md": {
+    "mtime": 1777916185.069781,
+    "hash": "e9870f9afdc4c6214549655abccd2255"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.pt-BR.md": {
+    "mtime": 1777916185.069781,
+    "hash": "27b64dc0e34fe88e13d13e8cd8714caa"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.ro-RO.md": {
+    "mtime": 1777916185.070994,
+    "hash": "ae90ff6940a62ef6514e9d3d5385cd26"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.ru-RU.md": {
+    "mtime": 1777916185.070994,
+    "hash": "70ea1a4f8f81424937ec7d537c49881c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.sv-SE.md": {
+    "mtime": 1777916185.0722647,
+    "hash": "bf5625414eb9c19780b79f99cba6201f"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.th-TH.md": {
+    "mtime": 1777916185.0722647,
+    "hash": "faee08ef1c36d5b3f20e311a24c84497"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.tr-TR.md": {
+    "mtime": 1777916185.0722647,
+    "hash": "b030515ddecdd2d3035deb8dcd94ab44"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.uk-UA.md": {
+    "mtime": 1777916185.0735283,
+    "hash": "41013b232d2917a2a7380b8e8725fb5c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.vi-VN.md": {
+    "mtime": 1777916185.0735283,
+    "hash": "b7276048863b55d4e8e50881a25bcd6b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.zh-CN.md": {
+    "mtime": 1777916185.0735283,
+    "hash": "d8c173e505a6c7bdef3136e8215dbdf0"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\translations\\README.zh-TW.md": {
+    "mtime": 1777916185.0749335,
+    "hash": "44fe44e290d5343df65bde35a88d2b3b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-aider.md": {
+    "mtime": 1777916185.0886853,
+    "hash": "bcf38cb957f08b5b05d256b85b6aadb8"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-claw.md": {
+    "mtime": 1777916185.0886853,
+    "hash": "c9089ef8cdfbfe5ee4b8b65ce826d947"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-codex.md": {
+    "mtime": 1777916185.0897036,
+    "hash": "cedfc3d086ab16720ec4ac5e1ff21515"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-copilot.md": {
+    "mtime": 1777916185.0897036,
+    "hash": "6f3429ef592acb7617e99d481062c603"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-droid.md": {
+    "mtime": 1777916185.0908144,
+    "hash": "a4709354130a0e25122be5947b3c4f07"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-kiro.md": {
+    "mtime": 1777916185.0908144,
+    "hash": "8bdd6056478b081e4ff100294b33b1b3"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-opencode.md": {
+    "mtime": 1777916185.0922084,
+    "hash": "0365d0c10e48536d1a5d522112050a40"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-pi.md": {
+    "mtime": 1777916185.0932178,
+    "hash": "8bdd6056478b081e4ff100294b33b1b3"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-trae.md": {
+    "mtime": 1777916185.0932178,
+    "hash": "c26a84b585300bb15b61ca4b51c2b387"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-vscode.md": {
+    "mtime": 1777916185.0945346,
+    "hash": "38074417a467980554987d26db93814b"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill-windows.md": {
+    "mtime": 1777916185.0945346,
+    "hash": "2c671fe829e07a7f1239dba43416b5df"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\graphify\\skill.md": {
+    "mtime": 1777916185.095542,
+    "hash": "795cd9b84a1b11ab6c90e18faaf305fc"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\tests\\fixtures\\sample.md": {
+    "mtime": 1777916185.1118743,
+    "hash": "e23659acdd71c13913857fceb1fabb48"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\README.md": {
+    "mtime": 1777916185.140841,
+    "hash": "0ad0e818e81e67221ca59bba8f61dedc"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\raw\\architecture.md": {
+    "mtime": 1777916185.1432416,
+    "hash": "1201316b29aec5bf4ce130fd116ea910"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\example\\raw\\notes.md": {
+    "mtime": 1777916185.1432416,
+    "hash": "b34fb1280985d1a2a44baca60fa2debf"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\GRAPH_REPORT.md": {
+    "mtime": 1777916185.146541,
+    "hash": "a604a6da7f618b140193e923e5bc4f92"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\README.md": {
+    "mtime": 1777916185.147543,
+    "hash": "433f8494c1a0c308c5ef09f0a2c54f80"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\httpx\\review.md": {
+    "mtime": 1777916185.152494,
+    "hash": "02e23ebb29f068b23dcce29af3d368d8"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\karpathy-repos\\GRAPH_REPORT.md": {
+    "mtime": 1777916185.1539116,
+    "hash": "69d7498903d698e456f009958234917c"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\karpathy-repos\\README.md": {
+    "mtime": 1777916185.1539116,
+    "hash": "b1cbbadc195601e545d3258ddb690553"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\karpathy-repos\\review.md": {
+    "mtime": 1777916185.1553314,
+    "hash": "9697fe2ebd4458a2d4957220e6ae5a10"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\mixed-corpus\\GRAPH_REPORT.md": {
+    "mtime": 1777916185.1567507,
+    "hash": "f5f230efee89ed874926d520edc12c66"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\mixed-corpus\\README.md": {
+    "mtime": 1777916185.1577518,
+    "hash": "34252f3bf7a5af70096da4ffa8d086ff"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\mixed-corpus\\review.md": {
+    "mtime": 1777916185.1617808,
+    "hash": "485aa5f2c880fde1b8f5342401f6038a"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\worked\\mixed-corpus\\raw\\attention_notes.md": {
+    "mtime": 1777916185.1591005,
+    "hash": "1d9910017f78af70ed111d74b5e3558d"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\Frontend\\public\\favicon.svg": {
+    "mtime": 1773934834.343615,
+    "hash": "21aace83a846bec37ca2cb11218722f1"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\logo-icon.svg": {
+    "mtime": 1777916185.0532455,
+    "hash": "7bfdde1f83bb3423470b408efabc2c52"
+  },
+  "C:\\Users\\jay19\\Desktop\\6th Sem Sgp\\URBANVISTA\\UrbanVista\\graphify\\docs\\logo-text.svg": {
+    "mtime": 1777916185.0532455,
+    "hash": "3a5c53971d1c5eca33d038201999dd68"
+  }
+}

@@ -1,6 +1,7 @@
 const express = require("express");
 const supabase = require("../config/supabase");
 const { toCamelCase, toSnakeCase } = require("../utils/transform");
+const { canAccessHouse, filterRowsByHouseScope, isScopedSecretary } = require("../utils/accessScope");
 
 const router = express.Router();
 
@@ -15,7 +16,8 @@ router.get("/", async (req, res) => {
 
     if (error) throw error;
 
-    res.json(toCamelCase(data));
+    const scoped = filterRowsByHouseScope(req, data || [], "house_id");
+    res.json(toCamelCase(scoped));
   } catch (err) {
     console.error("Fetch members error:", err);
     res.status(500).json({ message: "Failed to fetch members" });
@@ -34,6 +36,10 @@ router.get("/:id", async (req, res) => {
     if (error) throw error;
     if (!data) return res.status(404).json({ message: "Member not found" });
 
+    if (isScopedSecretary(req) && !canAccessHouse(req, data.house_id)) {
+      return res.status(403).json({ message: "Access denied for this member" });
+    }
+
     res.json(toCamelCase(data));
   } catch (err) {
     console.error("Fetch member error:", err);
@@ -48,6 +54,10 @@ router.post("/", async (req, res) => {
     delete dbData.id;
     delete dbData.created_at;
     delete dbData.updated_at;
+
+    if (isScopedSecretary(req) && !canAccessHouse(req, dbData.house_id)) {
+      return res.status(403).json({ message: "You can only add members for assigned houses" });
+    }
 
     const { data, error } = await supabase
       .from("members")
@@ -72,6 +82,24 @@ router.put("/:id", async (req, res) => {
     delete dbData.created_at;
     delete dbData.updated_at;
 
+    const { data: existingMember, error: existingError } = await supabase
+      .from("members")
+      .select("id, house_id")
+      .eq("id", req.params.id)
+      .single();
+
+    if (existingError || !existingMember) {
+      return res.status(404).json({ message: "Member not found" });
+    }
+
+    if (isScopedSecretary(req) && !canAccessHouse(req, existingMember.house_id)) {
+      return res.status(403).json({ message: "Access denied for this member" });
+    }
+
+    if (isScopedSecretary(req) && dbData.house_id && !canAccessHouse(req, dbData.house_id)) {
+      return res.status(403).json({ message: "Target house is outside your scope" });
+    }
+
     const { data, error } = await supabase
       .from("members")
       .update(dbData)
@@ -92,6 +120,20 @@ router.put("/:id", async (req, res) => {
 // DELETE /api/members/:id — Delete a member
 router.delete("/:id", async (req, res) => {
   try {
+    const { data: existingMember, error: existingError } = await supabase
+      .from("members")
+      .select("id, house_id")
+      .eq("id", req.params.id)
+      .single();
+
+    if (existingError || !existingMember) {
+      return res.status(404).json({ message: "Member not found" });
+    }
+
+    if (isScopedSecretary(req) && !canAccessHouse(req, existingMember.house_id)) {
+      return res.status(403).json({ message: "Access denied for this member" });
+    }
+
     const { error } = await supabase
       .from("members")
       .delete()

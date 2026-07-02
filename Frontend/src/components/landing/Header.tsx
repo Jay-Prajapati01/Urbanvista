@@ -53,14 +53,24 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link to="/admin/login">
+            <Link to="/login">
               <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-                Sign In
+                Resident Login
               </Button>
             </Link>
-            <Link to="/admin/dashboard">
+            <Link to="/secretary/login">
+              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                Secretary
+              </Button>
+            </Link>
+            <Link to="/admin/login">
+              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                Admin
+              </Button>
+            </Link>
+            <Link to="/signup">
               <Button variant="default">
-                Dashboard
+                Sign Up
               </Button>
             </Link>
           </div>

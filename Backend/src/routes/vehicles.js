@@ -1,6 +1,7 @@
 const express = require("express");
 const supabase = require("../config/supabase");
 const { toCamelCase, toSnakeCase } = require("../utils/transform");
+const { canAccessHouse, filterRowsByHouseScope, isScopedSecretary } = require("../utils/accessScope");
 
 const router = express.Router();
 
@@ -33,7 +34,9 @@ router.get("/", async (req, res) => {
       owner_name: v.owner_name || houseMap[v.house_id] || "",
     }));
 
-    res.json(toCamelCase(enriched));
+    const scoped = filterRowsByHouseScope(req, enriched, "house_id");
+
+    res.json(toCamelCase(scoped));
   } catch (err) {
     console.error("Fetch vehicles error:", err);
     res.status(500).json({ message: "Failed to fetch vehicles" });
@@ -52,6 +55,10 @@ router.get("/:id", async (req, res) => {
     if (error) throw error;
     if (!data) return res.status(404).json({ message: "Vehicle not found" });
 
+    if (isScopedSecretary(req) && !canAccessHouse(req, data.house_id)) {
+      return res.status(403).json({ message: "Access denied for this vehicle" });
+    }
+
     res.json(toCamelCase(data));
   } catch (err) {
     console.error("Fetch vehicle error:", err);
@@ -68,6 +75,10 @@ router.post("/", async (req, res) => {
     delete dbData.updated_at;
     delete dbData.owner_name;
     delete dbData.owner_id;
+
+    if (isScopedSecretary(req) && !canAccessHouse(req, dbData.house_id)) {
+      return res.status(403).json({ message: "You can only add vehicles for assigned houses" });
+    }
 
     const { data, error } = await supabase
       .from("vehicles")
@@ -92,6 +103,24 @@ router.put("/:id", async (req, res) => {
     delete dbData.created_at;
     delete dbData.updated_at;
 
+    const { data: existingVehicle, error: existingError } = await supabase
+      .from("vehicles")
+      .select("id, house_id")
+      .eq("id", req.params.id)
+      .single();
+
+    if (existingError || !existingVehicle) {
+      return res.status(404).json({ message: "Vehicle not found" });
+    }
+
+    if (isScopedSecretary(req) && !canAccessHouse(req, existingVehicle.house_id)) {
+      return res.status(403).json({ message: "Access denied for this vehicle" });
+    }
+
+    if (isScopedSecretary(req) && dbData.house_id && !canAccessHouse(req, dbData.house_id)) {
+      return res.status(403).json({ message: "Target house is outside your scope" });
+    }
+
     const { data, error } = await supabase
       .from("vehicles")
       .update(dbData)
@@ -112,6 +141,20 @@ router.put("/:id", async (req, res) => {
 // DELETE /api/vehicles/:id — Delete a vehicle
 router.delete("/:id", async (req, res) => {
   try {
+    const { data: existingVehicle, error: existingError } = await supabase
+      .from("vehicles")
+      .select("id, house_id")
+      .eq("id", req.params.id)
+      .single();
+
+    if (existingError || !existingVehicle) {
+      return res.status(404).json({ message: "Vehicle not found" });
+    }
+
+    if (isScopedSecretary(req) && !canAccessHouse(req, existingVehicle.house_id)) {
+      return res.status(403).json({ message: "Access denied for this vehicle" });
+    }
+
     const { error } = await supabase
       .from("vehicles")
       .delete()
