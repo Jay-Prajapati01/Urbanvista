@@ -10,8 +10,8 @@ function getRazorpayConfig() {
     throw new Error("Razorpay is not configured. Set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET.");
   }
 
-  if (!String(keyId).startsWith("rzp_test_")) {
-    throw new Error("Only Razorpay TEST MODE keys are allowed in this environment.");
+  if (!String(keyId).startsWith("rzp_test_") && !String(keyId).startsWith("rzp_live_")) {
+    throw new Error("Razorpay key must start with rzp_test_ or rzp_live_.");
   }
 
   return {

@@ -24,6 +24,7 @@ const settlementsRoutes = require("./src/routes/settlements");
 const paymentsRoutes = require("./src/routes/payments");
 const userMaintenanceRoutes = require("./src/routes/userMaintenance");
 const receiptsRoutes = require("./src/routes/receipts");
+const webhookRoutes = require("./src/routes/webhook");
 
 // User routes
 const userAuthRoutes = require("./src/routes/userAuth");
@@ -43,9 +44,16 @@ const startupStatus = {
 app.set("trust proxy", 1);
 const logger = require("./src/utils/logger");
 
-// Middleware
+// Middleware — raw body for Razorpay webhook verification (must be before express.json)
+app.use("/api/webhooks/razorpay", express.raw({ type: "application/json" }));
+
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:8080", "http://localhost:3000"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "https://urbanvista-omega.vercel.app",
+  ],
   credentials: true,
 }));
 app.use(express.json());
@@ -64,6 +72,7 @@ app.use(createCsrfProtection({
     "/api/payments/create-order",
     "/api/payments/verify",
     "/api/payments/attempt",
+    "/api/webhooks/razorpay",
   ],
 }));
 
@@ -110,6 +119,9 @@ app.use(
   requirePermission("activity", { defaultAction: "read", actionByMethod: { POST: "read" } }),
   activityRoutes
 );
+
+// Razorpay webhook — no auth, raw body, CSRF exempt
+app.use("/api/webhooks/razorpay", webhookRoutes);
 
 // Health check
 app.get("/api/health", (_req, res) => {
